@@ -4,15 +4,39 @@ body {
     margin: 0;
     padding: 0;
     line-height: 1.6;
-    color: #333;
-    background-color: #f9f9f9;
+    color: #333; /* Base text color */
+    background-color: #ffffff; /* White body background */
 }
 
-header, footer {
-    background-color: #8b0000; /* Dark Red */
-    color: #fff;
+p {
+    text-align: center; 
+    margin: 10px auto; 
+    color: #555; 
+    font-size: 1.1rem;
+    line-height: 1.5; 
+}
+
+ul, ol {
+    text-align: center; 
+    margin: 0 auto; 
+    padding: 10px 0; 
+}
+
+/*ul li, ol li {
+    display: inline-block; 
+    text-align: center; 
+    margin: 5px 0;
+    color: #555; 
+    font-size: 1.1rem; 
+}*/
+
+/* Header */
+header {
+    color: #333; /* Soft dark gray text */
     padding: 20px;
     text-align: center;
+    background-color: #f5f5f5; /* Light gray background for header */
+    border-bottom: 5px solid #dcdcdc; /* Subtle border for separation */
 }
 
 header h1 {
@@ -21,14 +45,21 @@ header h1 {
     text-transform: uppercase;
     letter-spacing: 2px;
     font-weight: bold;
+    color: #8b0000; /* Deep red headline */
 }
 
+header p {
+    font-size: 1.2rem;
+    color: #555; /* Dark gray for subtitle */
+}
+
+/* Navigation */
 nav ul {
     list-style: none;
     padding: 0;
     margin: 0;
     position: relative;
-    text-align: right; /* Align the dropdown menu to the right */
+    text-align: right; /* Align dropdown menu to the right */
 }
 
 nav ul li {
@@ -43,17 +74,17 @@ nav ul li a {
     font-weight: bold;
     padding: 10px 15px;
     border-radius: 5px;
-    background-color: #5b0000; /* Slightly darker red for tabs */
+    background-color: #b22222; /* Softer red for buttons */
 }
 
 nav ul li a:hover {
-    background-color: #700000; /* Even darker red on hover */
+    background-color: #c73e3e; /* Slightly lighter red on hover */
 }
 
 nav ul li ul {
     display: none;
     position: absolute;
-    background-color: #333; /* Dropdown menu background color */
+    background-color: #555; /* Dropdown menu background */
     right: 0;
     padding: 10px;
     border-radius: 5px;
@@ -72,29 +103,54 @@ nav ul li ul li a {
     color: #fff;
     padding: 10px;
     border-radius: 5px;
-    background-color: #444;
+    background-color: #777; /* Slightly lighter gray */
 }
 
 nav ul li ul li a:hover {
-    background-color: #666;
+    background-color: #999; /* Light gray hover */
 }
 
-/* Footer Links */
+/* Centered Sentences */
+.center-text {
+    text-align: center; /* Center-align the text */
+    margin: 0 auto; /* Horizontally center the section */
+    padding: 20px 0; /* Add spacing above and below */
+    font-size: 1.2rem; /* Slightly larger font for readability */
+    color: #555; /* Dark gray for softer appearance */
+    line-height: 1.5; /* Improved line spacing */
+}
+
+/* Highlighted Text Inside Centered Sentences */
+.center-text strong {
+    color: #8b0000; /* Deep red for emphasis */
+    font-weight: bold; /* Make emphasized text bold */
+}
+
+/* Footer */
 footer {
-    position: relative; /* Ensures footer remains at the bottom */
+    background-color: #8b0000; /* Maroon footer */
+    color: #fff;
+    padding: 20px;
     text-align: center;
-    padding: 10px;
-    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center content vertically */
+    align-items: center; /* Center content horizontally */
 }
 
 footer ul {
     list-style: none;
     padding: 0;
+    margin: 10px 0 0; /* Add spacing between text and links */
 }
 
 footer ul li {
     display: inline-block;
     margin-right: 15px;
+}
+
+footer ul li:last-child {
+    margin-right: 0; /* Remove margin for the last item */
 }
 
 footer ul li a {
@@ -109,28 +165,31 @@ footer ul li a:hover {
 
 /* Section Headings */
 section h2 {
-    color: #8b0000;
+    color: #8b0000; /* Deep red headline */
     margin-bottom: 10px;
     text-align: center;
     font-size: 2rem;
     text-transform: uppercase;
 }
 
-/* Button Styles */
+/* Buttons */
 button, input[type="submit"] {
-    background-color: #8b0000;
+    background-color: #b22222; /* Softer red */
     color: #fff;
-    padding: 10px 20px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     text-align: center;
     display: block;
     margin: 0 auto;
+    width: 6cm; /* Button width */
+    height: 1cm; /* Button height */
+    font-size: 14px;
+    text-transform: uppercase;
 }
 
 button:hover, input[type="submit"]:hover {
-    background-color: #5b0000; /* Darker Red */
+    background-color: #c73e3e; /* Slightly lighter red */
 }
 
 /* Form Styles */
@@ -158,14 +217,7 @@ form textarea {
     resize: vertical;
 }
 
-/* Contact Us and Hire Us Centering */
-section {
-    margin-bottom: 40px;
-    padding: 20px;
-    text-align: center;
-}
-
-/* Colorful Service Containers */
+/* Service Blocks */
 section div {
     display: flex;
     justify-content: space-between;
@@ -179,19 +231,20 @@ section div div {
     border: 1px solid #ddd;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px; /* Add space between service blocks and next section */
 }
 
-/* Unique Colors for Service Containers */
+/* Service Block Background Colors */
 section div div:nth-child(1) {
-    background-color: #ffe4b5; /* Light Orange */
+    background-color: #ffedd5; /* Soft peach for Application Prep */
 }
 
 section div div:nth-child(2) {
-    background-color: #d3ffd3; /* Light Green */
+    background-color: #d5ffe6; /* Light green for Consultation */
 }
 
 section div div:nth-child(3) {
-    background-color: #add8e6; /* Light Blue */
+    background-color: #d5e8ff; /* Soft blue for Document Help */
 }
 
 section div div:hover {
@@ -199,30 +252,16 @@ section div div:hover {
 }
 
 section div div h3 {
-    color: #8b0000;
+    color: #333; /* Dark gray for service headings */
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    nav ul li {
-        display: block;
-        text-align: left;
-        margin-bottom: 10px;
-    }
-
-    section div div {
-        width: 100%;
-        margin-bottom: 20px;
-    }
+section div div a {
+    color: #333; /* Dark gray links for better readability */
+    font-weight: bold;
+    text-decoration: none;
 }
 
-@media (max-width: 480px) {
-    header h1 {
-        font-size: 1.8rem;
-    }
-
-    button, input[type="submit"] {
-        font-size: 14px;
-        padding: 8px 12px;
-    }
+section div div a:hover {
+    color: #000; /* Black on hover */
+    text-decoration: underline;
 }
