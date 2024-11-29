@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/styles.css">
+  <title>Consultation</title>
+</head>
+<body>
+  <header>
+    <h1>Consultation</h1>
+    <nav>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li>
+          <a href="#">Services</a>
+          <ul>
+            <li><a href="/application.html">Application Prep</a></li>
+            <li><a href="/consultation.html">Consultation</a></li>
+            <li><a href="/document-help.html">Document Help</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <section>
+      <h2>Service Overview</h2>
+      <p>
+        Our consultation service ensures you have all the necessary insights and steps to navigate APA applications.
+      </p>
+    </section>
+    <section>
+      <h2>How It Works</h2>
+      <ol>
+        <li>Schedule a consultation using the form below.</li>
+        <li>Discuss your needs and get expert advice.</li>
+      </ol>
+    </section>
+    <section>
+      <h2>Pricing Details</h2>
+      <p>$50 per hour. Bulk discounts available.</p>
+    </section>
+    <section>
+      <h2>Payment</h2>
+      <button id="payment-button">Pay Now</button>
+    </section>
+    <section>
+      <h2>Contact Form</h2>
+      <form action="/send-email" method="POST">
+        <input type="text" name="name" placeholder="Your Name" required>
+        <input type="email" name="email" placeholder="Your Email" required>
+        <textarea name="message" placeholder="Message"></textarea>
+        <button type="submit">Send</button>
+      </form>
+    </section>
+  </main>
+  <script src="/payment.js"></script>
+</body>
+</html>

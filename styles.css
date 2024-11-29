@@ -1,0 +1,200 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f9f9f9;
+  }
+  
+  header, footer {
+    background-color: #8b0000; /* Dark Red */
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  header h1, footer p {
+    margin: 0;
+  }
+  
+  nav ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  nav ul li {
+    display: inline-block;
+    margin-right: 15px;
+  }
+  
+  nav ul li a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+  }
+  
+  nav ul li ul {
+    display: none;
+    position: absolute;
+    background-color: #8b0000;
+    padding: 10px;
+  }
+  
+  nav ul li:hover ul {
+    display: block;
+  }
+  
+  nav ul li ul li {
+    display: block;
+    margin: 0;
+  }
+  
+  main {
+    padding: 20px;
+  }
+  
+  /* Section Headings */
+  section h2 {
+    color: #8b0000;
+    margin-bottom: 10px;
+  }
+  
+  section p, section ul, section ol {
+    margin-bottom: 20px;
+  }
+  
+  /* Button Styles */
+  button, input[type="submit"] {
+    background-color: #8b0000;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button:hover, input[type="submit"]:hover {
+    background-color: #5b0000; /* Darker Red */
+  }
+  
+  /* Form Styles */
+  form {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  form input, form textarea, form button {
+    display: block;
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  form textarea {
+    resize: vertical;
+  }
+  
+  /* Footer Links */
+  footer ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  footer ul li {
+    display: inline-block;
+    margin-right: 15px;
+  }
+  
+  footer ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  footer ul li a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Homepage Specific Styles */
+  header h1 {
+    font-size: 2.5rem;
+    text-transform: uppercase;
+  }
+  
+  section {
+    margin-bottom: 40px;
+    padding: 20px;
+  }
+  
+  section div {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  
+  section div div {
+    width: 30%;
+    text-align: center;
+    background-color: #fff;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  section div div:hover {
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  }
+  
+  section div div h3 {
+    color: #8b0000;
+  }
+  
+  button {
+    background-color: #8b0000;
+    color: #fff;
+    font-size: 16px;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-transform: uppercase;
+  }
+  
+  /* Documentation Page Styling */
+  .documentation-section h3 {
+    color: #8b0000;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    nav ul li {
+      display: block;
+      margin-bottom: 10px;
+    }
+  
+    section div div {
+      width: 100%;
+      margin-bottom: 20px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    header h1 {
+      font-size: 1.8rem;
+    }
+  
+    button, input[type="submit"] {
+      font-size: 14px;
+      padding: 8px 12px;
+    }
+  }
+  

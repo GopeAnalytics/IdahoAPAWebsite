@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/styles.css">
+  <title>Application Prep</title>
+</head>
+<body>
+  <header>
+    <h1>Application Prep</h1>
+    <nav>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li>
+          <a href="#">Services</a>
+          <ul>
+            <li><a href="/application.html">Application Prep</a></li>
+            <li><a href="/consultation.html">Consultation</a></li>
+            <li><a href="/document-help.html">Document Help</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <section>
+      <h2>Service Description</h2>
+      <p>
+        We handle the complexities of the APA application process, ensuring smooth navigation through required steps.
+      </p>
+    </section>
+    <section>
+      <h2>Steps We Handle</h2>
+      <ul>
+        <li>Gathering required information.</li>
+        <li>Drafting and submitting the application.</li>
+      </ul>
+    </section>
+    <section>
+      <h2>Fee Structure</h2>
+      <p>Choose the plan that works best for you. Pricing is transparent and tailored to your needs.</p>
+    </section>
+    <section>
+      <h2>Application Form</h2>
+      <form action="/send-email" method="POST" enctype="multipart/form-data">
+        <input type="text" name="name" placeholder="Your Name" required>
+        <input type="email" name="email" placeholder="Your Email" required>
+        <textarea name="details" placeholder="Land Details"></textarea>
+        <input type="file" name="document" required>
+        <button type="submit">Submit Application</button>
+      </form>
+    </section>
+    <section>
+      <h2>Payment Portal</h2>
+      <button id="payment-button">Pay Now</button>
+    </section>
+  </main>
+  <script src="/payment.js"></script>
+</body>
+</html>

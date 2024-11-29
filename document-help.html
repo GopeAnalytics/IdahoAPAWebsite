@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/styles.css">
+  <title>Document Help</title>
+</head>
+<body>
+  <header>
+    <h1>Document Help</h1>
+    <nav>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li>
+          <a href="#">Services</a>
+          <ul>
+            <li><a href="/application.html">Application Prep</a></li>
+            <li><a href="/consultation.html">Consultation</a></li>
+            <li><a href="/document-help.html">Document Help</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <section>
+      <h2>Service Overview</h2>
+      <p>
+        We assist with gathering and organizing the required documents for your APA application.
+      </p>
+    </section>
+    <section>
+      <h2>Types of Documents</h2>
+      <ul>
+        <li>Land Ownership Certificates</li>
+        <li>Zoning Maps</li>
+        <li>Supporting Letters</li>
+      </ul>
+    </section>
+    <section>
+      <h2>Document Upload</h2>
+      <form action="/upload" method="POST" enctype="multipart/form-data">
+        <input type="file" name="document" required>
+        <button type="submit">Upload Documents</button>
+      </form>
+    </section>
+    <section>
+      <h2>Payment</h2>
+      <button id="payment-button">Pay Now</button>
+    </section>
+  </main>
+  <script src="/payment.js"></script>
+</body>
+</html>
