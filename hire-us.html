@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/styles.css">
+  <title>Hire Us</title>
+</head>
+<body>
+  <header>
+    <h1>Hire Us</h1>
+    <nav>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li>
+          <a href="#">Services</a>
+          <ul>
+            <li><a href="/application.html">Application Prep</a></li>
+            <li><a href="/consultation.html">Consultation</a></li>
+            <li><a href="/document-help.html">Document Help</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <section>
+      <h2>Introduction</h2>
+      <p>
+        Discover how our services can simplify APA applications and help you protect your agricultural land effectively.
+      </p>
+    </section>
+    <section>
+      <h2>Services Overview</h2>
+      <ul>
+        <li>Application Preparation</li>
+        <li>Consultation</li>
+        <li>Document Assistance</li>
+      </ul>
+    </section>
+    <section>
+      <h2>Packages and Pricing</h2>
+      <p>
+        Choose from our affordable pricing plans tailored to fit your needs:
+      </p>
+      <ul>
+        <li>Basic Package: $100</li>
+        <li>Premium Package: $200</li>
+        <li>Custom Packages Available</li>
+      </ul>
+    </section>
+    <section>
+      <h2>Form to Collect Details</h2>
+      <form action="/send-email" method="POST" enctype="multipart/form-data">
+        <input type="text" name="name" placeholder="Your Name" required>
+        <input type="email" name="email" placeholder="Your Email" required>
+        <textarea name="land_details" placeholder="Land Details"></textarea>
+        <input type="file" name="document" required>
+        <button type="submit">Submit Details</button>
+      </form>
+    </section>
+    <section>
+      <h2>Booking Calendar</h2>
+      <p>
+        Schedule a consultation with our experts:
+      </p>
+      <input type="date" name="booking_date" required>
+    </section>
+    <section>
+      <h2>Payment</h2>
+      <p>Secure payment through PayPal or credit card:</p>
+      <button id="payment-button">Pay Now</button>
+    </section>
+    <section>
+      <h2>Contact Information</h2>
+      <p>Phone: (123) 456-7890</p>
+      <p>Email: info@paladinpartners.com</p>
+    </section>
+  </main>
+  <script src="/payment.js"></script>
+</body>
+</html>

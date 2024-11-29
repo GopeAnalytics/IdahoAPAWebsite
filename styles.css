@@ -6,81 +6,135 @@ body {
     line-height: 1.6;
     color: #333;
     background-color: #f9f9f9;
-  }
-  
-  header, footer {
+}
+
+header, footer {
     background-color: #8b0000; /* Dark Red */
     color: #fff;
     padding: 20px;
     text-align: center;
-  }
-  
-  header h1, footer p {
+}
+
+header h1 {
     margin: 0;
-  }
-  
-  nav ul {
+    font-size: 3rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: bold;
+}
+
+nav ul {
     list-style: none;
     padding: 0;
-  }
-  
-  nav ul li {
+    margin: 0;
+    position: relative;
+    text-align: right; /* Align the dropdown menu to the right */
+}
+
+nav ul li {
     display: inline-block;
-    margin-right: 15px;
-  }
-  
-  nav ul li a {
+    margin-left: 15px;
+    position: relative;
+}
+
+nav ul li a {
     text-decoration: none;
     color: #fff;
     font-weight: bold;
-  }
-  
-  nav ul li ul {
+    padding: 10px 15px;
+    border-radius: 5px;
+    background-color: #5b0000; /* Slightly darker red for tabs */
+}
+
+nav ul li a:hover {
+    background-color: #700000; /* Even darker red on hover */
+}
+
+nav ul li ul {
     display: none;
     position: absolute;
-    background-color: #8b0000;
+    background-color: #333; /* Dropdown menu background color */
+    right: 0;
     padding: 10px;
-  }
-  
-  nav ul li:hover ul {
+    border-radius: 5px;
+}
+
+nav ul li:hover ul {
     display: block;
-  }
-  
-  nav ul li ul li {
+}
+
+nav ul li ul li {
     display: block;
-    margin: 0;
-  }
-  
-  main {
-    padding: 20px;
-  }
-  
-  /* Section Headings */
-  section h2 {
+    margin: 5px 0;
+}
+
+nav ul li ul li a {
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #444;
+}
+
+nav ul li ul li a:hover {
+    background-color: #666;
+}
+
+/* Footer Links */
+footer {
+    position: relative; /* Ensures footer remains at the bottom */
+    text-align: center;
+    padding: 10px;
+    margin-top: 40px;
+}
+
+footer ul {
+    list-style: none;
+    padding: 0;
+}
+
+footer ul li {
+    display: inline-block;
+    margin-right: 15px;
+}
+
+footer ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+footer ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Section Headings */
+section h2 {
     color: #8b0000;
     margin-bottom: 10px;
-  }
-  
-  section p, section ul, section ol {
-    margin-bottom: 20px;
-  }
-  
-  /* Button Styles */
-  button, input[type="submit"] {
+    text-align: center;
+    font-size: 2rem;
+    text-transform: uppercase;
+}
+
+/* Button Styles */
+button, input[type="submit"] {
     background-color: #8b0000;
     color: #fff;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-  }
-  
-  button:hover, input[type="submit"]:hover {
+    text-align: center;
+    display: block;
+    margin: 0 auto;
+}
+
+button:hover, input[type="submit"]:hover {
     background-color: #5b0000; /* Darker Red */
-  }
-  
-  /* Form Styles */
-  form {
+}
+
+/* Form Styles */
+form {
     max-width: 600px;
     margin: 0 auto;
     background-color: #fff;
@@ -88,9 +142,9 @@ body {
     border: 1px solid #ddd;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  form input, form textarea, form button {
+}
+
+form input, form textarea, form button {
     display: block;
     width: 100%;
     margin-bottom: 15px;
@@ -98,103 +152,77 @@ body {
     border: 1px solid #ddd;
     border-radius: 5px;
     font-size: 16px;
-  }
-  
-  form textarea {
+}
+
+form textarea {
     resize: vertical;
-  }
-  
-  /* Footer Links */
-  footer ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  footer ul li {
-    display: inline-block;
-    margin-right: 15px;
-  }
-  
-  footer ul li a {
-    color: #fff;
-    text-decoration: none;
-    font-weight: bold;
-  }
-  
-  footer ul li a:hover {
-    text-decoration: underline;
-  }
-  
-  /* Homepage Specific Styles */
-  header h1 {
-    font-size: 2.5rem;
-    text-transform: uppercase;
-  }
-  
-  section {
+}
+
+/* Contact Us and Hire Us Centering */
+section {
     margin-bottom: 40px;
     padding: 20px;
-  }
-  
-  section div {
+    text-align: center;
+}
+
+/* Colorful Service Containers */
+section div {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-  }
-  
-  section div div {
+}
+
+section div div {
     width: 30%;
     text-align: center;
-    background-color: #fff;
     padding: 15px;
     border: 1px solid #ddd;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  section div div:hover {
+}
+
+/* Unique Colors for Service Containers */
+section div div:nth-child(1) {
+    background-color: #ffe4b5; /* Light Orange */
+}
+
+section div div:nth-child(2) {
+    background-color: #d3ffd3; /* Light Green */
+}
+
+section div div:nth-child(3) {
+    background-color: #add8e6; /* Light Blue */
+}
+
+section div div:hover {
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-  }
-  
-  section div div h3 {
+}
+
+section div div h3 {
     color: #8b0000;
-  }
-  
-  button {
-    background-color: #8b0000;
-    color: #fff;
-    font-size: 16px;
-    padding: 10px 15px;
-    border-radius: 5px;
-    text-transform: uppercase;
-  }
-  
-  /* Documentation Page Styling */
-  .documentation-section h3 {
-    color: #8b0000;
-  }
-  
-  /* Responsive Design */
-  @media (max-width: 768px) {
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
     nav ul li {
-      display: block;
-      margin-bottom: 10px;
+        display: block;
+        text-align: left;
+        margin-bottom: 10px;
     }
-  
+
     section div div {
-      width: 100%;
-      margin-bottom: 20px;
+        width: 100%;
+        margin-bottom: 20px;
     }
-  }
-  
-  @media (max-width: 480px) {
+}
+
+@media (max-width: 480px) {
     header h1 {
-      font-size: 1.8rem;
+        font-size: 1.8rem;
     }
-  
+
     button, input[type="submit"] {
-      font-size: 14px;
-      padding: 8px 12px;
+        font-size: 14px;
+        padding: 8px 12px;
     }
-  }
-  
+}
