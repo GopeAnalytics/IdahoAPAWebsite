@@ -22,14 +22,6 @@ ul, ol {
     padding: 10px 0; 
 }
 
-/*ul li, ol li {
-    display: inline-block; 
-    text-align: center; 
-    margin: 5px 0;
-    color: #555; 
-    font-size: 1.1rem; 
-}*/
-
 /* Header */
 header {
     color: #333; /* Soft dark gray text */
@@ -42,7 +34,7 @@ header {
 header h1 {
     margin: 0;
     font-size: 3rem;
-    text-transform: uppercase;
+    text-transform: uppercase; /* Header remains in uppercase */
     letter-spacing: 2px;
     font-weight: bold;
     color: #8b0000; /* Deep red headline */
@@ -53,13 +45,22 @@ header p {
     color: #555; /* Dark gray for subtitle */
 }
 
-/* Navigation */
+/* Subheadings (First Letter Capitalized) */
+section h2, section h3 {
+    color: #8b0000; /* Deep red headline */
+    margin-bottom: 10px;
+    text-align: center;
+    font-size: 1.5rem; /* Slightly smaller size for subheadings */
+    text-transform: capitalize; /* Ensure first letter is capitalized */
+}
+
+/* Navigation Menu */
 nav ul {
     list-style: none;
     padding: 0;
     margin: 0;
     position: relative;
-    text-align: right; /* Align dropdown menu to the right */
+    text-align: right; /* Align menu to the right */
 }
 
 nav ul li {
@@ -70,24 +71,25 @@ nav ul li {
 
 nav ul li a {
     text-decoration: none;
-    color: #fff;
+    color: #fff; /* White text for visibility */
     font-weight: bold;
     padding: 10px 15px;
     border-radius: 5px;
-    background-color: #b22222; /* Softer red for buttons */
+    background-color: #8b0000; /* Maroon for tabs */
 }
 
 nav ul li a:hover {
-    background-color: #c73e3e; /* Slightly lighter red on hover */
+    background-color: #700000; /* Darker maroon on hover */
 }
 
 nav ul li ul {
     display: none;
     position: absolute;
-    background-color: #555; /* Dropdown menu background */
+    background-color: #8b0000; /* Maroon dropdown menu background */
     right: 0;
     padding: 10px;
     border-radius: 5px;
+    min-width: 150px; /* Consistent dropdown size */
 }
 
 nav ul li:hover ul {
@@ -100,14 +102,14 @@ nav ul li ul li {
 }
 
 nav ul li ul li a {
-    color: #fff;
+    color: #fff; /* White text in dropdown */
     padding: 10px;
     border-radius: 5px;
-    background-color: #777; /* Slightly lighter gray */
+    background-color: #8b0000; /* Maroon dropdown links */
 }
 
 nav ul li ul li a:hover {
-    background-color: #999; /* Light gray hover */
+    background-color: #700000; /* Darker maroon on hover */
 }
 
 /* Centered Sentences */
@@ -161,15 +163,6 @@ footer ul li a {
 
 footer ul li a:hover {
     text-decoration: underline;
-}
-
-/* Section Headings */
-section h2 {
-    color: #8b0000; /* Deep red headline */
-    margin-bottom: 10px;
-    text-align: center;
-    font-size: 2rem;
-    text-transform: uppercase;
 }
 
 /* Buttons */
