@@ -4,68 +4,82 @@ body {
     margin: 0;
     padding: 0;
     line-height: 1.6;
-    color: #333; /* Base text color */
-    background-color: #ffffff; /* White body background */
+    color: #333;
+    background-color: #ffffff;
 }
 
 p {
-    text-align: center; 
-    margin: 10px auto; 
-    color: #555; 
+    text-align: center;
+    margin: 10px auto;
+    color: #555;
     font-size: 1.1rem;
-    line-height: 1.5; 
+    line-height: 1.5;
 }
 
 ul, ol {
-    text-align: center; 
-    margin: 0 auto; 
-    padding: 10px 0; 
+    text-align: center;
+    margin: 0 auto;
+    padding: 10px 0;
 }
 
-/*ul li, ol li {
-    display: inline-block; 
-    text-align: center; 
-    margin: 5px 0;
-    color: #555; 
-    font-size: 1.1rem; 
-}*/
-
-/* Header */
 header {
-    color: #333; /* Soft dark gray text */
-    padding: 20px;
-    text-align: center;
-    background-color: #f5f5f5; /* Light gray background for header */
-    border-bottom: 5px solid #dcdcdc; /* Subtle border for separation */
+    display: flex; /* Enable flexbox for layout */
+    flex-direction: column; /* Stack navigation and title vertically */
+    align-items: stretch; /* Center-align the title */
+    padding: 10px 20px; /* Add padding around the header */
+    background-color: #f5f5f5;
+    border-bottom: 2px solid #dcdcdc;
+}
+
+header .top-nav {
+    width: 100%; /* Ensure the navigation spans the full width */
+    text-align: right !important; /* Align the navigation links to the right */
+    margin-bottom: 10px; /* Add spacing between the navigation and the title */
+    position: relative; /* For absolute positioning of dropdowns */
 }
 
 header h1 {
-    margin: 0;
-    font-size: 3rem;
+    text-align: center; /* Center-align the title */
+    font-size: 2.5rem;
     text-transform: uppercase;
     letter-spacing: 2px;
     font-weight: bold;
-    color: #8b0000; /* Deep red headline */
+    color: #8b0000;
+    margin: 0; /* Remove default margin */
 }
+
 
 header p {
     font-size: 1.2rem;
-    color: #555; /* Dark gray for subtitle */
+    color: #555;
 }
 
-/* Navigation */
+/* Subheadings */
+section h2, section h3 {
+    color: #8b0000;
+    margin-bottom: 10px;
+    text-align: center;
+    font-size: 1.5rem;
+    text-transform: capitalize;
+}
+
+/* Navigation Menu */
+nav {
+    flex-grow: 1; /* Allow navigation to grow and push items to the far-right */
+    text-align: right; /* Align navigation to the right */
+    
+}
 nav ul {
     list-style: none;
-    padding: 0;
     margin: 0;
-    position: relative;
-    text-align: right; /* Align dropdown menu to the right */
+    padding: 0;
+    display: flex; /* Use flexbox for horizontal layout */
+    gap: 15px; /* Add space between items */
+    justify-content: flex-end; /* Explicitly align items to the right */
 }
 
 nav ul li {
-    display: inline-block;
-    margin-left: 15px;
-    position: relative;
+    margin: 0;
 }
 
 nav ul li a {
@@ -74,20 +88,76 @@ nav ul li a {
     font-weight: bold;
     padding: 10px 15px;
     border-radius: 5px;
-    background-color: #b22222; /* Softer red for buttons */
+    background-color: #8b0000;
 }
-
 nav ul li a:hover {
-    background-color: #c73e3e; /* Slightly lighter red on hover */
+    background-color: #700000;
 }
 
+/* Hamburger Menu Styles for Small Screens */
+.hamburger {
+    display: none; /* Hide the hamburger button on larger screens */
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 10;
+}
+
+.hamburger span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background: #333;
+    margin: 5px 0;
+    transition: 0.3s;
+}
+
+/* Responsive Navigation */
+@media (max-width: 768px) {
+    .hamburger {
+        display: block; /* Show the hamburger menu button on smaller screens */
+    }
+
+    nav ul {
+        display: none; /* Hide the navigation links by default */
+        flex-direction: column; /* Stack the navigation links vertically */
+        position: absolute;
+        top: 50px;
+        left: 0;
+        width: 100%;
+        background-color: #8b0000;
+        padding: 10px 0;
+        z-index: 9;
+    }
+
+    nav ul.show {
+        display: flex; /* Show the navigation links when toggled */
+    }
+
+    nav ul li {
+        text-align: center; /* Center-align links in vertical menu */
+        margin: 10px 0;
+    }
+
+    nav ul li a {
+        padding: 10px;
+        width: 100%; /* Make links take the full width of the dropdown */
+    }
+}
+
+
+/* Dropdown Menu */
 nav ul li ul {
     display: none;
     position: absolute;
-    background-color: #555; /* Dropdown menu background */
-    right: 0;
+    background-color: #8b0000;
     padding: 10px;
     border-radius: 5px;
+    min-width: 150px;
 }
 
 nav ul li:hover ul {
@@ -103,45 +173,29 @@ nav ul li ul li a {
     color: #fff;
     padding: 10px;
     border-radius: 5px;
-    background-color: #777; /* Slightly lighter gray */
+    background-color: #8b0000;
 }
 
 nav ul li ul li a:hover {
-    background-color: #999; /* Light gray hover */
-}
-
-/* Centered Sentences */
-.center-text {
-    text-align: center; /* Center-align the text */
-    margin: 0 auto; /* Horizontally center the section */
-    padding: 20px 0; /* Add spacing above and below */
-    font-size: 1.2rem; /* Slightly larger font for readability */
-    color: #555; /* Dark gray for softer appearance */
-    line-height: 1.5; /* Improved line spacing */
-}
-
-/* Highlighted Text Inside Centered Sentences */
-.center-text strong {
-    color: #8b0000; /* Deep red for emphasis */
-    font-weight: bold; /* Make emphasized text bold */
+    background-color: #700000;
 }
 
 /* Footer */
 footer {
-    background-color: #8b0000; /* Maroon footer */
+    background-color: #8b0000;
     color: #fff;
     padding: 20px;
     text-align: center;
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Center content vertically */
-    align-items: center; /* Center content horizontally */
+    justify-content: center;
+    align-items: center;
 }
 
 footer ul {
     list-style: none;
     padding: 0;
-    margin: 10px 0 0; /* Add spacing between text and links */
+    margin: 10px 0;
 }
 
 footer ul li {
@@ -150,7 +204,7 @@ footer ul li {
 }
 
 footer ul li:last-child {
-    margin-right: 0; /* Remove margin for the last item */
+    margin-right: 0;
 }
 
 footer ul li a {
@@ -163,39 +217,30 @@ footer ul li a:hover {
     text-decoration: underline;
 }
 
-/* Section Headings */
-section h2 {
-    color: #8b0000; /* Deep red headline */
-    margin-bottom: 10px;
-    text-align: center;
-    font-size: 2rem;
-    text-transform: uppercase;
-}
-
 /* Buttons */
 button, input[type="submit"] {
-    background-color: #b22222; /* Softer red */
+    background-color: #b22222;
     color: #fff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     text-align: center;
     display: block;
-    margin: 0 auto;
-    width: 6cm; /* Button width */
-    height: 1cm; /* Button height */
+    margin: 10px auto;
+    width: 150px; /* Adjusted button width */
+    height: 40px; /* Adjusted button height */
     font-size: 14px;
     text-transform: uppercase;
 }
 
 button:hover, input[type="submit"]:hover {
-    background-color: #c73e3e; /* Slightly lighter red */
+    background-color: #c73e3e;
 }
 
 /* Form Styles */
 form {
     max-width: 600px;
-    margin: 0 auto;
+    margin: 20px auto;
     background-color: #fff;
     padding: 20px;
     border: 1px solid #ddd;
@@ -222,6 +267,7 @@ section div {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
+    gap: 15px;
 }
 
 section div div {
@@ -231,37 +277,112 @@ section div div {
     border: 1px solid #ddd;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin-bottom: 30px; /* Add space between service blocks and next section */
 }
 
-/* Service Block Background Colors */
 section div div:nth-child(1) {
-    background-color: #ffedd5; /* Soft peach for Application Prep */
+    background-color: #ffedd5;
 }
 
 section div div:nth-child(2) {
-    background-color: #d5ffe6; /* Light green for Consultation */
+    background-color: #d5ffe6;
 }
 
 section div div:nth-child(3) {
-    background-color: #d5e8ff; /* Soft blue for Document Help */
+    background-color: #d5e8ff;
 }
 
 section div div:hover {
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
 }
 
-section div div h3 {
-    color: #333; /* Dark gray for service headings */
+/* Document Upload Section */
+.document-upload {
+    text-align: center;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
 }
 
-section div div a {
-    color: #333; /* Dark gray links for better readability */
-    font-weight: bold;
-    text-decoration: none;
+.document-upload h3 {
+    color: #8b0000;
+    margin-bottom: 10px;
 }
 
-section div div a:hover {
-    color: #000; /* Black on hover */
-    text-decoration: underline;
+.document-upload p {
+    color: #555;
+    margin-bottom: 20px;
+}
+
+#fileInput {
+    margin-bottom: 20px;
+}
+
+#fileList div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+/* Booking Calendar Section */
+.booking-calendar {
+    text-align: center;
+    margin: 20px auto;
+    padding: 20px;
+    max-width: 600px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2rem;
+    }
+
+    nav ul li {
+        display: block;
+        margin: 10px 0;
+    }
+
+    section div {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    section div div {
+        width: 90%;
+        margin-bottom: 15px;
+    }
+
+    button, input[type="submit"] {
+        width: 100%; /* Buttons span full width */
+    }
+}
+
+@media (max-width: 430px) {
+    header h1 {
+        font-size: 1.8rem;
+    }
+
+    section div div {
+        width: 100%;
+    }
+
+    button, input[type="submit"] {
+        width: 90%; /* Adjusted button width for small screens */
+        height: 40px; /* Ensure buttons are easy to tap */
+    }
+
+    form {
+        padding: 15px;
+    }
 }

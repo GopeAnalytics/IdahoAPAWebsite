@@ -7,23 +7,30 @@
   <title>Document Help</title>
 </head>
 <body>
-  <header>
-    <h1>Document Help</h1>
-    <nav>
-      <ul>
-        <li><a href="/">Home</a></li>
-        <li>
-          <a href="#">Services</a>
-          <ul>
-            <li><a href="/application.html">Application Prep</a></li>
-            <li><a href="/consultation.html">Consultation</a></li>
-            <li><a href="/document-help.html">Document Help</a></li>
-          </ul>
-        </li>
-        <li><a href="/about.html">About</a></li>
-      </ul>
-    </nav>
-  </header>
+    <header>
+        <div class="top-nav">
+            <button class="hamburger" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li>
+                        <a href="#">Services</a>
+                        <ul>
+                            <li><a href="/application.html">Application Prep</a></li>
+                            <li><a href="/consultation.html">Consultation</a></li>
+                            <li><a href="/document-help.html">Document Help</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="/about.html">About</a></li>
+                </ul>
+            </nav>
+        </div>
+        <h1>APAs Expert Guidance</h1>
+    </header>       
   <main>
     <section>
       <h2>Service Overview</h2>
@@ -42,7 +49,13 @@
     <section>
       <h2>Document Upload</h2>
       <form action="/upload" method="POST" enctype="multipart/form-data">
-        <input type="file" name="document" required>
+         <!-- Document Upload Section -->
+         <div class="document-upload">
+            <h3>Upload Your Documents</h3>
+            <p>You can upload up to 5 documents (max size: 5MB each).</p>
+            <input type="file" id="fileInput" accept=".pdf,.doc,.docx,.jpg,.png" multiple />
+            <div id="fileList"></div>
+          </div>
         <button type="submit">Upload Documents</button>
       </form>
     </section>
@@ -51,7 +64,6 @@
       <button id="payment-button">Pay Now</button>
     </section>
   </main>
-  <script src="/payment.js"></script>
   <footer>
     <ul>
       <li><a href="/faq.html">FAQ</a></li>
@@ -61,5 +73,7 @@
     </ul>
     <p1>Contact: (123) 456-7890</p1>
   </footer>
+  <script src="/payment.js"></script>
+  <script src="/scripts.js"></script>
 </body>
 </html>
