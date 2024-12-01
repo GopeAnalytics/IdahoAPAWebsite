@@ -51,17 +51,17 @@
     </section>
     <section>
       <h2>Application Form</h2>
-      <form id="application-form">
+      <form id="application-form" action="/submit-application" method="POST" enctype="multipart/form-data">
         <input type="text" name="name" placeholder="Your Name" required>
         <input type="email" name="email" placeholder="Your Email" required>
         <textarea name="details" placeholder="Land Details"></textarea>
          <!-- Document Upload Section -->
-         <!--<div class="document-upload">
+         <div class="document-upload">
             <h3>Upload Your Documents</h3>
             <p>You can upload up to 5 documents (max size: 5MB each).</p>
-            <input type="file" id="fileInput" accept=".pdf,.doc,.docx,.jpg,.png" multiple />
+            <input type="file"  name="documents" id="fileInput" accept=".pdf,.doc,.docx,.jpg,.png" multiple/>
             <div id="fileList"></div>
-          </div>-->
+          </div>
         <button type="submit">Submit Application</button>
       </form>
       <div id="application-response"></div>
@@ -82,8 +82,8 @@
     </ul>
     <p1>Contact: (123) 456-7890</p1>
   </footer>
-  <!-- <script src="/payment.js"></script> -->
+   <!-- <script src="/payment.js"></script> -->
   <script src="/scripts.js"></script>
-  <!-- <script src="https://js.stripe.com/v3/"></script> -->
+  <!-- <script src="https://js.stripe.com/v3/"></script>  -->
 </body>
 </html>

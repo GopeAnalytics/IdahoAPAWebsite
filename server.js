@@ -2,7 +2,7 @@ const express = require('express');
 const nodemailer = require('nodemailer');
 const bodyParser = require('body-parser');
 const { Storage } = require('@google-cloud/storage');
-const multer = require('multer');
+const multer = require('multer'); // First and only declaration
 const stripe = require('stripe')('your-stripe-secret-key'); // Replace with your Stripe secret key
 const cors = require('cors');
 
@@ -11,6 +11,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors()); // For handling cross-origin requests
 
+// Configure Multer to use memory storage
+const upload = multer({ storage: multer.memoryStorage() });
+
 // Static files (CSS, JS, Images)
 app.use(express.static('public'));
 
@@ -18,8 +21,8 @@ app.use(express.static('public'));
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: 'olwenyjohn87@gmail.com', // Replace with your email
-        pass: 'jnnr cfps siur xjgh',   // Replace with your email password or app-specific password
+        user: 'kelvinekiganga999@gmail.com', // Replace with your email
+        pass: 'ovtf pfya rzav juxk',   // Replace with your email password or app-specific password
     },
 });
 
@@ -29,7 +32,6 @@ const storage = new Storage({
     projectId: 'your-project-id',                    // Replace with your Google Cloud project ID
 });
 const bucketName = 'your-bucket-name'; // Replace with your bucket name
-const upload = multer({ storage: multer.memoryStorage() });
 
 // Routes
 
@@ -53,23 +55,65 @@ app.post('/send-email', (req, res) => {
     });
 });
 
-// 2. Application Form Submission (with Email)
-app.post('/submit-application', (req, res) => {
-    const { name, email, applicationDetails } = req.body;
+// Submit Application Form
+app.post('/submit-application', upload.array('documents', 5), (req, res) => {
+    console.log('Files:', req.files); // Debug log for uploaded files
+    console.log('Body:', req.body);   // Debug log for form fields
+
+    if (!req.files) {
+        return res.status(400).send('No files were uploaded');
+    }
+    const { name, email, details } = req.body;
+    const attachments = req.files.map(file => ({
+        filename: file.originalname,
+        content: file.buffer,
+    }));
 
     const mailOptions = {
         from: email,
-        to: 'olwenyjohn87@gmail.com',
-        subject: `New Application Submission: ${name}`,
-        text: applicationDetails,
+        to: 'j00512317@gmail.com', // Replace with your organization's email
+        subject: `Application Form Submission from ${name}`,
+        text: `Name: ${name}\nEmail: ${email}\nLand Details: ${details}`,
+        attachments: attachments,
     };
 
     transporter.sendMail(mailOptions, (err, info) => {
         if (err) {
             console.error(err);
-            return res.status(500).send('Application submission failed');
+            return res.status(500).send('Failed to send application email');
         }
-        res.send('Application submitted successfully!');
+        res.send('Application email sent successfully!');
+    });
+});
+
+// Hire Us Form
+app.post('/hire-us', upload.array('documents', 5), (req, res) => {
+    console.log('Files:', req.files); // Debug log for uploaded files
+    console.log('Body:', req.body);   // Debug log for form fields
+
+    if (!req.files) {
+        return res.status(400).send('No files were uploaded');
+    }
+    const { name, email, land_details } = req.body;
+    const attachments = req.files.map(file => ({
+        filename: file.originalname,
+        content: file.buffer,
+    }));
+
+    const mailOptions = {
+        from: email,
+        to: 'j00512317@gmail.com', // Replace with your organization's email
+        subject: `Hire Us Form Submission from ${name}`,
+        text: `Name: ${name}\nEmail: ${email}\nLand Details: ${land_details}`,
+        attachments: attachments,
+    };
+
+    transporter.sendMail(mailOptions, (err, info) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).send('Failed to send hire-us email');
+        }
+        res.send('Hire-us email sent successfully!');
     });
 });
 

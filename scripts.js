@@ -3,7 +3,7 @@
 document.querySelector(".hamburger").addEventListener("click", function () {
     const navMenu = document.querySelector("nav ul");
     navMenu.classList.toggle("show");
-});
+});*/
 
 document.addEventListener("DOMContentLoaded", () => {
     const fileInput = document.getElementById("fileInput");
@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
             fileList.appendChild(fileDiv);
         });
     }
-});
+});/*
 //Frontend integration for Stripe payment.
     const stripe = Stripe('your-publishable-key'); // Replace with your Stripe publishable key
     const elements = stripe.elements();
@@ -87,8 +87,8 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
             document.getElementById('payment-result').textContent = 'Payment successful!';
         }
-    });*/
-   /* console.log('scripts.js loaded');
+    });
+    console.log('scripts.js loaded');
 document.addEventListener('DOMContentLoaded', () => {
     console.log('DOM fully loaded');
     const form = document.getElementById('contact-form');
@@ -127,28 +127,46 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });*/
+    //Application form Submission.
     
-    // Application Form Submission
-    document.getElementById('application-form').addEventListener('submit', async function (e) {
-        e.preventDefault(); // Prevent default form submission
-
-        const formData = new FormData(e.target);
-        const data = Object.fromEntries(formData.entries()); // Convert FormData to JSON
-
-        try {
-            const response = await fetch('/http://localhost:3000/submit-application', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data),
+    document.addEventListener('DOMContentLoaded', () => {
+        const applicationForm = document.getElementById('application-form');
+        const hireUsForm = document.getElementById('hire-us-form');
+    
+        const handleFormSubmit = async (form, url, responseDivId) => {
+            const formData = new FormData(form);
+            const responseDiv = document.getElementById(responseDivId);
+            responseDiv.innerText = 'Sending...';
+    
+            try {
+                const response = await fetch('http://localhost:3000/submit-application', {
+                    method: 'POST',
+                    body: formData,
+                });
+                const message = await response.text();
+                responseDiv.innerText = message;
+            } catch (error) {
+                console.error('Error submitting form:', error);
+                responseDiv.innerText = 'Failed to submit form.';
+            }
+        };
+    
+        if (applicationForm) {
+            applicationForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                handleFormSubmit(applicationForm, '/submit-application', 'application-response');
             });
-
-            const message = await response.text();
-            document.getElementById('application-response').innerText = message; // Show success or error
-        } catch (error) {
-            console.error('Error submitting application:', error);
-            document.getElementById('application-response').innerText = 'Failed to submit application.';
+        }
+    
+        if (hireUsForm) {
+            hireUsForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                handleFormSubmit(hireUsForm, '/hire-us', 'hire-us-response');
+            });
         }
     });
+    
+
 /*
 // Contact-us Form Submission
 document.addEventListener('DOMContentLoaded', () => {
