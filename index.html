@@ -63,12 +63,13 @@
       
     <section>
       <h2>Contact Us</h2>
-      <form action="/send-email" method="POST">
-        <input type="text" name="name" placeholder="Name" required>
-        <input type="email" name="email" placeholder="Email" required>
+      <form id="contact-us">
+        <input type="text" name="name" placeholder="Your Name" required>
+        <input type="email" name="email" placeholder="Your Email" required>
         <textarea name="message" placeholder="Message"></textarea>
         <button type="submit">Send</button>
-      </form>
+    </form>
+    <div id="contact-us-response"></div>
     </section>
   </main>
   <footer>
@@ -80,6 +81,6 @@
     </ul>
     <p1>Contact: (123) 456-7890</p1>
   </footer>
-  <script src="/scripts.js"></script>
+  <script src="scripts.js"></script>
 </body>
 </html>

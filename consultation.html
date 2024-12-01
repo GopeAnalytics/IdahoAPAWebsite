@@ -29,7 +29,7 @@
                 </ul>
             </nav>
         </div>
-        <h1>APAs Expert Guidance</h1>
+        <h1>Consultation</h1>
     </header>    
   <main>
     <section>
@@ -51,28 +51,32 @@
     </section>
     <section>
       <h2>Payment</h2>
-      <button id="payment-button">Pay Now</button>
+      <button id="pay-now-button">Pay Now</button>
+      <div id="card-element"></div>
+      <div id="payment-result"></div>
     </section>
     <section>
       <h2>Contact Form</h2>
-      <form action="/send-email" method="POST">
+      <form id="contact-form">
         <input type="text" name="name" placeholder="Your Name" required>
         <input type="email" name="email" placeholder="Your Email" required>
         <textarea name="message" placeholder="Message"></textarea>
         <button type="submit">Send</button>
-      </form>
+    </form>
+    <div id="contact-response"></div>    
     </section>
   </main>
   <footer>
     <ul>
       <li><a href="/faq.html">FAQ</a></li>
-      <li><a href="/privacy-policy.html">Privacy Policy</a></li>
+      <li><a href="privacy-policy.html">Privacy Policy</a></li>
       <li><a href="/terms-of-service.html">Terms of Service</a></li>
       <li><a href="/about.html">About</a></li>
     </ul>
     <p1>Contact: (123) 456-7890</p1>
   </footer>
-  <script src="/payment.js"></script>
-  <script src="/scripts.js"></script>
+  <!-- <script src="/payment.js"></script> -->
+  <script src="scripts.js"></script>
+  <!-- <script src="https://js.stripe.com/v3/"></script> -->
 </body>
 </html>

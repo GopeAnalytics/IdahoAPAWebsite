@@ -29,7 +29,7 @@
                 </ul>
             </nav>
         </div>
-        <h1>APAs Expert Guidance</h1>
+        <h1>Application Preparation</h1>
     </header>     
   <main>
     <section>
@@ -51,23 +51,26 @@
     </section>
     <section>
       <h2>Application Form</h2>
-      <form action="/send-email" method="POST" enctype="multipart/form-data">
+      <form id="application-form">
         <input type="text" name="name" placeholder="Your Name" required>
         <input type="email" name="email" placeholder="Your Email" required>
         <textarea name="details" placeholder="Land Details"></textarea>
          <!-- Document Upload Section -->
-         <div class="document-upload">
+         <!--<div class="document-upload">
             <h3>Upload Your Documents</h3>
             <p>You can upload up to 5 documents (max size: 5MB each).</p>
             <input type="file" id="fileInput" accept=".pdf,.doc,.docx,.jpg,.png" multiple />
             <div id="fileList"></div>
-          </div>
+          </div>-->
         <button type="submit">Submit Application</button>
       </form>
+      <div id="application-response"></div>
     </section>
     <section>
       <h2>Payment Portal</h2>
-      <button id="payment-button">Pay Now</button>
+      <button id="pay-now-button">Pay Now</button>
+      <div id="card-element"></div>
+      <div id="payment-result"></div>
     </section>
   </main>
   <footer>
@@ -79,7 +82,8 @@
     </ul>
     <p1>Contact: (123) 456-7890</p1>
   </footer>
-  <script src="/payment.js"></script>
+  <!-- <script src="/payment.js"></script> -->
   <script src="/scripts.js"></script>
+  <!-- <script src="https://js.stripe.com/v3/"></script> -->
 </body>
 </html>
