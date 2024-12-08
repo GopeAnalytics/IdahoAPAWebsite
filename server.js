@@ -10,6 +10,8 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors()); // For handling cross-origin requests
+app.get('/favicon.ico', (req, res) => res.status(204).end());
+
 
 // Configure Multer to use memory storage
 const upload = multer({ storage: multer.memoryStorage() });
@@ -17,15 +19,15 @@ const upload = multer({ storage: multer.memoryStorage() });
 // Static files (CSS, JS, Images)
 app.use(express.static('public'));
 
-// Nodemailer Configuration
+// Nodemailer with Mailgun Configuration
 const transporter = nodemailer.createTransport({
-    service: 'gmail',
+    host: "smtp.mailgun.org",
+    port: 587,
     auth: {
-        user: 'kelvinekiganga999@gmail.com', // Replace with your email
-        pass: 'ovtf pfya rzav juxk',   // Replace with your email password or app-specific password
+        user: "postmaster@sandboxd6daf816fa9d4ed1be462febe4636b40.mailgun.org", // Replace with your sandbox domain
+        pass: "b928402e82e12e3007aad775f742811c-f55d7446-60c6a826", // Replace with your SMTP password
     },
 });
-
 // Google Cloud Storage Configuration
 const storage = new Storage({
     keyFilename: 'path-to-your-service-account.json', // Replace with your JSON key file path
@@ -40,9 +42,9 @@ app.post('/send-email', (req, res) => {
     const { name, email, message } = req.body;
 
     const mailOptions = {
-        from: email,
+        from: `${email}`, // Use the sender's email from the form dynamically
         to: 'j00512317@gmail.com', // Replace with your organization's email
-        subject: `Contact Form: ${name}`,
+        subject: `APA Assistance Inquiry ${name}`,
         text: message,
     };
 
@@ -70,8 +72,8 @@ app.post('/submit-application', upload.array('documents', 5), (req, res) => {
     }));
 
     const mailOptions = {
-        from: email,
-        to: 'j00512317@gmail.com', // Replace with your organization's email
+        from: `${email}`, // Use the sender's email from the form dynamically
+        to: 'kelvinekiganga999@gmail.com', // Replace with your organization's email
         subject: `Application Form Submission from ${name}`,
         text: `Name: ${name}\nEmail: ${email}\nLand Details: ${details}`,
         attachments: attachments,
@@ -101,8 +103,8 @@ app.post('/hire-us', upload.array('documents', 5), (req, res) => {
     }));
 
     const mailOptions = {
-        from: email,
-        to: 'j00512317@gmail.com', // Replace with your organization's email
+        from: `${email}`, // Use the sender's email from the form dynamically
+        to: 'kelvinekiganga999@gmail.com', // Replace with your organization's email
         subject: `Hire Us Form Submission from ${name}`,
         text: `Name: ${name}\nEmail: ${email}\nLand Details: ${land_details}`,
         attachments: attachments,
@@ -116,6 +118,28 @@ app.post('/hire-us', upload.array('documents', 5), (req, res) => {
         res.send('Hire-us email sent successfully!');
     });
 });
+// Contact Us Form Submission
+app.post('/contact-us', (req, res) => {
+    const { name, email, message } = req.body;
+
+    const mailOptions = {
+        from: email, // Use the sender's email from the form
+        to: 'kelvinekiganga999@gmail.com', // Replace with your organization's email
+        subject: `Contact Form: ${name}`, // Include the name in the subject
+        text: `You have received a new message from your website contact form.Name: ${name} Email: ${email}
+          Message:${message}`,
+    };
+
+    transporter.sendMail(mailOptions, (err, info) => {
+        if (err) {
+            console.error('Error sending email:', err);
+            return res.status(500).send('Failed to send contact form email');
+        }
+        res.send('Contact form email sent successfully!');
+    });
+});
+
+
 
 // 3. File Upload to Google Cloud
 app.post('/upload', upload.single('document'), (req, res) => {
@@ -140,7 +164,7 @@ app.post('/upload', upload.single('document'), (req, res) => {
     blobStream.end(req.file.buffer);
 });
 
-// 4. Stripe Payment Intent Creation
+/*/ 4. Stripe Payment Intent Creation
 app.post('/create-payment-intent', async (req, res) => {
     try {
         const { amount } = req.body; // Amount in cents
@@ -155,7 +179,7 @@ app.post('/create-payment-intent', async (req, res) => {
         console.error(error);
         res.status(500).send('Payment creation failed');
     }
-});
+});*/
 
 // Server Listener
 const PORT = 3000;

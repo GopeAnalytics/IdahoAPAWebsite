@@ -22,7 +22,7 @@
                         <ul>
                             <li><a href="/application.html">Application Prep</a></li>
                             <li><a href="/consultation.html">Consultation</a></li>
-                            <li><a href="/document-help.html">Document Help</a></li>
+                            <!-- <li><a href="/document-help.html">Document Help</a></li> -->
                         </ul>
                     </li>
                     <li><a href="/about.html">About</a></li>
@@ -37,13 +37,16 @@
       <p>
         Discover how our services can simplify APA applications and help you protect your agricultural land effectively.
       </p>
+      <p>
+        This service is only available in Madison County Idaho.
+      </p>
     </section>
     <section>
       <h2>Services Overview</h2>
       <ul>
         <li>Application Preparation</li>
         <li>Consultation</li>
-        <li>Document Assistance</li>
+        <!-- <li>Document Assistance</li> -->
       </ul>
     </section>
     <section>
@@ -52,14 +55,13 @@
         Choose from our affordable pricing plans tailored to fit your needs:
       </p>
       <ul>
-        <li>Basic Package: $100</li>
-        <li>Premium Package: $200</li>
-        <li>Custom Packages Available</li>
+        <li>$225 per parcel for APA applications (includes representing you before the APA board).</li>
+        <li>$150 per hour of consulting (minimum 1 hour commitment).</li>
       </ul>
     </section>
     <section>
       <h2>Form to Collect Details</h2>
-      <form id="hire-us-form" action="/hire-us" method="POST" enctype="multipart/form-data">
+      <form id="hire-us-form">
         <input type="text" name="name" placeholder="Your Name" required>
         <input type="email" name="email" placeholder="Your Email" required>
         <textarea name="land_details" placeholder="Land Details"></textarea>
@@ -72,6 +74,7 @@
           </div>
         <button type="submit">Submit Details</button>
       </form>
+      <div id="hire-us-response"></div>
     </section>
     <section class="booking-calendar">
         <h2>Booking Calendar</h2>
@@ -102,9 +105,9 @@
     </ul>
     <p1>Contact: (123) 456-7890</p1>
   </footer>
-  <script src="/payment.js"></script>
-  <script src="scripts.js"></script>
-  <script src="https://js.stripe.com/v3/"></script>
+  <!-- <script src="/payment.js"></script> -->
+  <script src="scripts.js?v=1"></script>
+  <!-- <script src="https://js.stripe.com/v3/"></script> -->
 
 </body>
 </html>

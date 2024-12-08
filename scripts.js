@@ -1,67 +1,162 @@
-// toggle the navigation menu when the hamburger button is clicked
-/*
-document.querySelector(".hamburger").addEventListener("click", function () {
-    const navMenu = document.querySelector("nav ul");
-    navMenu.classList.toggle("show");
-});*/
-
 document.addEventListener("DOMContentLoaded", () => {
+    console.log("DOM fully loaded. scripts.js is running.");
+
+    // Toggle the navigation menu
+    document.querySelector(".hamburger").addEventListener("click", function () {
+        const navMenu = document.querySelector("nav ul");
+        navMenu.classList.toggle("show");
+    });
+
+    // File upload handling logic for the Application Form
     const fileInput = document.getElementById("fileInput");
     const fileList = document.getElementById("fileList");
     const maxFiles = 5;
-    const maxSize = 5 * 1024 * 1024; // 5MB in bytes/
+    const maxSize = 5 * 1024 * 1024; // 5MB in bytes
 
-    // Array to store selected files
     let files = [];
 
-   fileInput.addEventListener("change", () => {
-        const newFiles = Array.from(fileInput.files);
+    if (fileInput) {
+        fileInput.addEventListener("change", () => {
+            const newFiles = Array.from(fileInput.files);
 
-        // Validate the number of files
-        if (files.length + newFiles.length > maxFiles) {
-            alert(`You can upload a maximum of ${maxFiles} files.`);
-            fileInput.value = ""; // Clear file input
-            return;
-        }
-
-        // Validate file sizes
-        for (const file of newFiles) {
-            if (file.size > maxSize) {
-                alert(`${file.name} exceeds the 5MB size limit.`);
+            // Validate the number of files
+            if (files.length + newFiles.length > maxFiles) {
+                alert(`You can upload a maximum of ${maxFiles} files.`);
                 fileInput.value = ""; // Clear file input
                 return;
             }
-        }
 
-        // Add new files to the files array and update the display
-        files.push(...newFiles);
-        updateFileList();
-        fileInput.value = ""; // Clear file input for re-selection
-    });
+            // Validate file sizes
+            for (const file of newFiles) {
+                if (file.size > maxSize) {
+                    alert(`${file.name} exceeds the 5MB size limit.`);
+                    fileInput.value = ""; // Clear file input
+                    return;
+                }
+            }
 
-    function updateFileList() {
-        fileList.innerHTML = ""; // Clear the current list
+            files.push(...newFiles);
+            updateFileList();
+            fileInput.value = ""; // Clear file input for re-selection
+        });
 
-        files.forEach((file, index) => {
-            const fileDiv = document.createElement("div");
+        function updateFileList() {
+            fileList.innerHTML = ""; // Clear the current list
 
-            const fileName = document.createElement("span");
-            fileName.textContent = file.name;
+            files.forEach((file, index) => {
+                const fileDiv = document.createElement("div");
 
-            const deleteButton = document.createElement("button");
-            deleteButton.textContent = "Delete";
-            deleteButton.addEventListener("click", () => {
-                files.splice(index, 1); // Remove the file from the array
-                updateFileList(); // Refresh the display
+                const fileName = document.createElement("span");
+                fileName.textContent = file.name;
+
+                const deleteButton = document.createElement("button");
+                deleteButton.textContent = "Delete";
+                deleteButton.addEventListener("click", () => {
+                    files.splice(index, 1); // Remove the file from the array
+                    updateFileList(); // Refresh the display
+                });
+
+                fileDiv.appendChild(fileName);
+                fileDiv.appendChild(deleteButton);
+                fileList.appendChild(fileDiv);
             });
+        }
+    }
 
-            fileDiv.appendChild(fileName);
-            fileDiv.appendChild(deleteButton);
-            fileList.appendChild(fileDiv);
+    // Function to handle form submission
+    async function handleFormSubmit(form, endpoint, responseDivId, isMultipart = false) {
+        const responseDiv = document.getElementById(responseDivId);
+        responseDiv.innerText = "Sending..."; // Show loading message
+        console.log("Submitting form to endpoint:", endpoint);
+
+        try {
+            const formData = new FormData(form);
+            console.log("Form data being sent:", Array.from(formData.entries())); // Log the data
+
+            const fetchOptions = {
+                method: "POST",
+                body: isMultipart ? formData : JSON.stringify(Object.fromEntries(formData.entries())),
+            };
+
+            if (!isMultipart) {
+                fetchOptions.headers = { "Content-Type": "application/json" };
+            }
+
+            const response = await fetch(endpoint, fetchOptions);
+            if (!response.ok) {
+                throw new Error(`Server error! Status: ${response.status}`);
+            }
+
+            const message = await response.text();
+            responseDiv.innerText = message || "Form submitted successfully.";
+            console.log("Form submission response:", message);
+        } catch (error) {
+            console.error("Error submitting form:", error);
+            responseDiv.innerText = "Failed to submit form. Please try again.";
+        }
+    }
+
+    // Contact Form Submission
+    const contactForm = document.getElementById("contact-form");
+    if (contactForm) {
+        contactForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            console.log("Contact form intercepted.");
+            handleFormSubmit(contactForm, "http://localhost:3000/send-email", "contact-response");
         });
     }
-});/*
-//Frontend integration for Stripe payment.
+    
+    // Application Form Submission
+    const applicationForm = document.getElementById("application-form");
+    if (applicationForm) {
+        applicationForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            console.log("Application form intercepted.");
+            handleFormSubmit(applicationForm, "http://localhost:3000/submit-application", "application-response", true);
+        });
+    }
+
+    // Hire-Us Form Submission
+    const hireUsForm = document.getElementById("hire-us-form");
+    if (hireUsForm) {
+        hireUsForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            console.log("Hire-Us form intercepted.");
+            handleFormSubmit(hireUsForm, "http://localhost:3000/hire-us", "hire-us-response", true);
+        });
+    }
+});
+
+  // Contact us Submission
+     document.getElementById('contact-us').addEventListener('submit', async (event) => {
+        event.preventDefault();
+    
+        const form = event.target;
+        const formData = new FormData(form);
+        const data = {
+            name: formData.get('name'),
+            email: formData.get('email'),
+            message: formData.get('message'),
+        };
+    
+        try {
+            const response = await fetch("http://localhost:3000/contact-us", {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data),
+            });
+    
+            const responseText = await response.text();
+            document.getElementById('contact-response').innerText = response.ok
+                ? 'Message sent successfully!'
+                : `Failed to send message: ${responseText}`;
+        } catch (error) {
+            console.error('Error submitting form:', error);
+            document.getElementById('contact-response').innerText = 'An error occurred while sending the message.';
+        }
+    });
+
+    /*// Stripe Payment Logic
     const stripe = Stripe('your-publishable-key'); // Replace with your Stripe publishable key
     const elements = stripe.elements();
     const card = elements.create('card');
@@ -87,113 +182,4 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
             document.getElementById('payment-result').textContent = 'Payment successful!';
         }
-    });
-    console.log('scripts.js loaded');
-document.addEventListener('DOMContentLoaded', () => {
-    console.log('DOM fully loaded');
-    const form = document.getElementById('contact-form');
-    if (form) {
-        console.log('Contact form found');
-    } else {
-        console.error('Contact form not found');
-    }
-});
-
-    // Contact Form Submission
-    document.addEventListener('DOMContentLoaded', () => {
-        // Contact Form Submission
-        document.getElementById('contact-form').addEventListener('submit', async function (e) {
-            e.preventDefault(); // Prevent default form submission
-            console.log('Form submission intercepted'); // Log to confirm this runs
-    
-            const responseDiv = document.getElementById('contact-response');
-            responseDiv.innerText = 'Sending...'; // Show loading message
-    
-            const formData = new FormData(e.target);
-            const data = Object.fromEntries(formData.entries()); // Convert FormData to JSON
-    
-            try {
-                const response = await fetch('http://localhost:3000/send-email', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(data),
-                });
-    
-                const message = await response.text();
-                responseDiv.innerText = message; // Show success or error
-            } catch (error) {
-                console.error('Error sending email:', error);
-                responseDiv.innerText = 'Failed to send email.';
-            }
-        });
     });*/
-    //Application form Submission.
-    
-    document.addEventListener('DOMContentLoaded', () => {
-        const applicationForm = document.getElementById('application-form');
-        const hireUsForm = document.getElementById('hire-us-form');
-    
-        const handleFormSubmit = async (form, url, responseDivId) => {
-            const formData = new FormData(form);
-            const responseDiv = document.getElementById(responseDivId);
-            responseDiv.innerText = 'Sending...';
-    
-            try {
-                const response = await fetch('http://localhost:3000/submit-application', {
-                    method: 'POST',
-                    body: formData,
-                });
-                const message = await response.text();
-                responseDiv.innerText = message;
-            } catch (error) {
-                console.error('Error submitting form:', error);
-                responseDiv.innerText = 'Failed to submit form.';
-            }
-        };
-    
-        if (applicationForm) {
-            applicationForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                handleFormSubmit(applicationForm, '/submit-application', 'application-response');
-            });
-        }
-    
-        if (hireUsForm) {
-            hireUsForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                handleFormSubmit(hireUsForm, '/hire-us', 'hire-us-response');
-            });
-        }
-    });
-    
-
-/*
-// Contact-us Form Submission
-document.addEventListener('DOMContentLoaded', () => {
-    // Contact-us Form Submission
-    document.getElementById('contact-us').addEventListener('submit', async function (e) {
-        e.preventDefault(); // Prevent default form submission
-        console.log('Form submission intercepted'); // Log to confirm this runs
-
-        const responseDiv = document.getElementById('contact-us-response');
-        responseDiv.innerText = 'Sending...'; // Show loading message
-
-        const formData = new FormData(e.target);
-        const data = Object.fromEntries(formData.entries()); // Convert FormData to JSON
-
-        try {
-            const response = await fetch('http://localhost:3000/send-email', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data),
-            });
-
-            const message = await response.text();
-            responseDiv.innerText = message; // Show success or error
-        } catch (error) {
-            console.error('Error sending email:', error);
-            responseDiv.innerText = 'Failed to send email.';
-        }
-    });
-});*/
-
