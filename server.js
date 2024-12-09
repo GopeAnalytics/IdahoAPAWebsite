@@ -139,6 +139,12 @@ app.post('/contact-us', (req, res) => {
     });
 });
 
+    // 2. Helcim Payment Intent (Redirect)
+    app.get('/payment-redirect', (req, res) => {
+    // Replace with your Helcim Payment Page URL
+    const helcimPaymentPageUrl = "https://secure.helcim.com/payment/your-helcim-id";
+    res.redirect(helcimPaymentPageUrl);
+});
 
 
 // 3. File Upload to Google Cloud
