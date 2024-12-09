@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener("DOMContentLoaded", () => {
     console.log("DOM fully loaded. scripts.js is running.");
 
     // Toggle the navigation menu
@@ -90,6 +90,11 @@ document.addEventListener("DOMContentLoaded", () => {
             const message = await response.text();
             responseDiv.innerText = message || "Form submitted successfully.";
             console.log("Form submission response:", message);
+            // Reload the page after successful submission
+          setTimeout(() => {
+            window.location.reload(); // Reload the page
+          }, 2000); // Wait 2 seconds before reloading
+          
         } catch (error) {
             console.error("Error submitting form:", error);
             responseDiv.innerText = "Failed to submit form. Please try again.";
