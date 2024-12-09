@@ -38,25 +38,31 @@ const bucketName = 'your-bucket-name'; // Replace with your bucket name
 // Routes
 
 // 1. Contact Form Email Sending
+// Contact Form Email Sending
 app.post('/send-email', (req, res) => {
-    const { name, email, message } = req.body;
-
+    const { name, email, message, consultation_day, consultation_mode } = req.body;
+  
     const mailOptions = {
-        from: `${email}`, // Use the sender's email from the form dynamically
-        to: 'j00512317@gmail.com', // Replace with your organization's email
-        subject: `APA Assistance Inquiry ${name}`,
-        text: message,
+      from: `${name} <${email}>`,
+      to: 'j00512317@gmail.com',
+      subject: `Contact Form Submission from ${name}`,
+      text: `
+        Name: ${name}
+        Email: ${email}
+        Message: ${message}
+        Consultation Day: ${consultation_day}
+        Consultation Mode: ${consultation_mode}
+      `,
     };
-
+  
     transporter.sendMail(mailOptions, (err, info) => {
-        if (err) {
-            console.error(err);
-            return res.status(500).send('Email failed to send');
-        }
-        res.send('Email sent successfully!');
+      if (err) {
+        console.error(err);
+        return res.status(500).send('Failed to send email');
+      }
+      res.send('Email sent successfully!');
     });
-});
-
+  });  
 // Submit Application Form
 app.post('/submit-application', upload.array('documents', 5), (req, res) => {
     console.log('Files:', req.files); // Debug log for uploaded files
@@ -90,34 +96,35 @@ app.post('/submit-application', upload.array('documents', 5), (req, res) => {
 
 // Hire Us Form
 app.post('/hire-us', upload.array('documents', 5), (req, res) => {
-    console.log('Files:', req.files); // Debug log for uploaded files
-    console.log('Body:', req.body);   // Debug log for form fields
-
-    if (!req.files) {
-        return res.status(400).send('No files were uploaded');
-    }
-    const { name, email, land_details } = req.body;
-    const attachments = req.files.map(file => ({
-        filename: file.originalname,
-        content: file.buffer,
+    const { name, email, land_details, consultation_day, service_type } = req.body;
+  
+    const attachments = req.files?.map((file) => ({
+      filename: file.originalname,
+      content: file.buffer,
     }));
-
+  
     const mailOptions = {
-        from: `${email}`, // Use the sender's email from the form dynamically
-        to: 'kelvinekiganga999@gmail.com', // Replace with your organization's email
-        subject: `Hire Us Form Submission from ${name}`,
-        text: `Name: ${name}\nEmail: ${email}\nLand Details: ${land_details}`,
-        attachments: attachments,
+      from: `${name} <${email}>`,
+      to: 'j00512317@gmail.com',
+      subject: `Hire-Us Form Submission from ${name}`,
+      text: `
+        Name: ${name}
+        Email: ${email}
+        Land Details: ${land_details}
+        Consultation Day: ${consultation_day}
+        Service Type: ${service_type}
+      `,
+      attachments,
     };
-
+  
     transporter.sendMail(mailOptions, (err, info) => {
-        if (err) {
-            console.error(err);
-            return res.status(500).send('Failed to send hire-us email');
-        }
-        res.send('Hire-us email sent successfully!');
+      if (err) {
+        console.error(err);
+        return res.status(500).send('Failed to send hire-us email');
+      }
+      res.send('Hire-us email sent successfully!');
     });
-});
+  });  
 // Contact Us Form Submission
 app.post('/contact-us', (req, res) => {
     const { name, email, message } = req.body;

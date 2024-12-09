@@ -65,24 +65,23 @@
         <input type="text" name="name" placeholder="Your Name" required>
         <input type="email" name="email" placeholder="Your Email" required>
         <textarea name="land_details" placeholder="Land Details"></textarea>
-         <!-- Document Upload Section -->
-         <div class="document-upload">
-            <h3>Upload Your Documents</h3>
-            <p>You can upload up to 5 documents (max size: 5MB each).</p>
-            <input type="file" id="fileInput" accept=".pdf,.doc,.docx,.jpg,.png" multiple />
-            <div id="fileList"></div>
-          </div>
+        <label for="consultation-day">Select Consultation Day (Weekdays Only):</label>
+        <input type="date" name="consultation_day" id="consultation-day" required>
+        <label for="service-type">Select Type of Service:</label>
+        <select name="service_type" id="service-type" required>
+          <option value="consultation">Consultation Only</option>
+          <option value="application_help">Application Help Only</option>
+          <option value="both">Both Consultation and Application</option>
+        </select>
+        <div class="document-upload">
+          <h3>Upload Your Documents (Optional)</h3>
+          <input type="file" id="fileInput" accept=".pdf,.doc,.docx,.jpg,.png" multiple />
+          <div id="fileList"></div>
+        </div>
         <button type="submit">Submit Details</button>
       </form>
       <div id="hire-us-response"></div>
-    </section>
-    <section class="booking-calendar">
-        <h2>Booking Calendar</h2>
-        <p>
-            Schedule a consultation with our experts:
-        </p>
-        <input type="date" name="booking_date" required>
-    </section>    
+    </section>      
     <section>
       <h2>Payment</h2>
       <p>Secure payment through Helcim:</p>

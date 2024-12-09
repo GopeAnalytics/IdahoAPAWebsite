@@ -56,10 +56,18 @@
         <input type="text" name="name" placeholder="Your Name" required>
         <input type="email" name="email" placeholder="Your Email" required>
         <textarea name="message" placeholder="Message"></textarea>
+        <label for="consultation-day">Select Consultation Day (Weekdays Only):</label>
+        <input type="date" name="consultation_day" id="consultation-day" required>
+        <label for="consultation-mode">Preferred Mode of Consultation:</label>
+        <select name="consultation_mode" id="consultation-mode" required>
+          <option value="online">Online</option>
+          <option value="physical">Physical</option>
+        </select>
         <button type="submit">Send</button>
-    </form>
-    <div id="contact-response"></div>    
+      </form>
+      <div id="contact-response"></div>    
     </section>
+    
     <section>
       <h2>Payment</h2>
       <form action="http://localhost:3000/payment-redirect" method="get">
