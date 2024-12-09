@@ -24,8 +24,8 @@ const transporter = nodemailer.createTransport({
     host: "smtp.mailgun.org",
     port: 587,
     auth: {
-        user: "postmaster@sandboxd6daf816fa9d4ed1be462febe4636b40.mailgun.org", // Replace with your sandbox domain
-        pass: "b928402e82e12e3007aad775f742811c-f55d7446-60c6a826", // Replace with your SMTP password
+        user: ".....", // Replace with your sandbox domain/user name
+        pass: "....", // Replace with your SMTP password
     },
 });
 // Google Cloud Storage Configuration
