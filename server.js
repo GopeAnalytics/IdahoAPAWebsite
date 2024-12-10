@@ -12,6 +12,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors()); // For handling cross-origin requests
 app.get('/favicon.ico', (req, res) => res.status(204).end());
 
+require('dotenv').config(); // Load environment variables
 
 // Configure Multer to use memory storage
 const upload = multer({ storage: multer.memoryStorage() });
@@ -24,14 +25,14 @@ const transporter = nodemailer.createTransport({
     host: "smtp.mailgun.org",
     port: 587,
     auth: {
-        user: ".....", // Replace with your sandbox domain/user name
-        pass: "....", // Replace with your SMTP password
+        user: process.env.MAILGUN_USER, // From .env file
+        pass: process.env.MAILGUN_PASS, // From .env file
     },
 });
 // Google Cloud Storage Configuration
 const storage = new Storage({
-    keyFilename: 'path-to-your-service-account.json', // Replace with your JSON key file path
-    projectId: 'your-project-id',                    // Replace with your Google Cloud project ID
+    keyFilename: process.env.GOOGLE_KEY_FILE, // From .env file
+    projectId: process.env.GOOGLE_PROJECT_ID, // From .env file
 });
 const bucketName = 'your-bucket-name'; // Replace with your bucket name
 
@@ -44,7 +45,7 @@ app.post('/send-email', (req, res) => {
   
     const mailOptions = {
       from: `${name} <${email}>`,
-      to: 'j00512317@gmail.com',
+      to: process.env.ORGANIZATION_EMAIL, // From .env file
       subject: `Contact Form Submission from ${name}`,
       text: `
         Name: ${name}
@@ -63,26 +64,30 @@ app.post('/send-email', (req, res) => {
       res.send('Email sent successfully!');
     });
   });  
-// Submit Application Form
+// Application Form Submission
 app.post('/submit-application', upload.array('documents', 5), (req, res) => {
-    console.log('Files:', req.files); // Debug log for uploaded files
-    console.log('Body:', req.body);   // Debug log for form fields
-
-    if (!req.files) {
-        return res.status(400).send('No files were uploaded');
-    }
+  console.log('Files received:', req.files); // Log the received files
+  console.log('Form fields received:', req.body); // Log the other form fields
     const { name, email, details } = req.body;
-    const attachments = req.files.map(file => ({
-        filename: file.originalname,
-        content: file.buffer,
-    }));
+
+    // Prepare attachments if files are uploaded
+    const attachments = req.files && req.files.length > 0
+        ? req.files.map((file) => ({
+              filename: file.originalname,
+              content: file.buffer,
+          }))
+        : []; // Empty array if no files are uploaded
 
     const mailOptions = {
-        from: `${email}`, // Use the sender's email from the form dynamically
-        to: 'kelvinekiganga999@gmail.com', // Replace with your organization's email
+      from: `${name} <${email}>`, // Use the sender's email from the form dynamically
+        to: process.env.ORGANIZATION_EMAIL, // From .env file
         subject: `Application Form Submission from ${name}`,
-        text: `Name: ${name}\nEmail: ${email}\nLand Details: ${details}`,
-        attachments: attachments,
+        text: `
+        Name: ${name}
+        Email: ${email}
+        Land Details: ${details}
+        `,
+        attachments, // Attach files if present
     };
 
     transporter.sendMail(mailOptions, (err, info) => {
@@ -93,19 +98,24 @@ app.post('/submit-application', upload.array('documents', 5), (req, res) => {
         res.send('Application email sent successfully!');
     });
 });
-
 // Hire Us Form
 app.post('/hire-us', upload.array('documents', 5), (req, res) => {
+    console.log('Headers:', req.headers); // Log headers to check Content-Type
+    console.log('Files received:', req.files); // Log the received files
+    console.log('Form fields received:', req.body); // Log the other form fields
     const { name, email, land_details, consultation_day, service_type } = req.body;
   
-    const attachments = req.files?.map((file) => ({
-      filename: file.originalname,
-      content: file.buffer,
-    }));
-  
+    // Prepare attachments if files are uploaded
+    const attachments = req.files && req.files.length > 0
+        ? req.files.map((file) => ({
+              filename: file.originalname,
+              content: file.buffer,
+          }))
+        : []; // Empty array if no files are uploaded
+
     const mailOptions = {
       from: `${name} <${email}>`,
-      to: 'j00512317@gmail.com',
+      to: process.env.ORGANIZATION_EMAIL, // From .env file
       subject: `Hire-Us Form Submission from ${name}`,
       text: `
         Name: ${name}
@@ -124,17 +134,20 @@ app.post('/hire-us', upload.array('documents', 5), (req, res) => {
       }
       res.send('Hire-us email sent successfully!');
     });
-  });  
+  });
+  
 // Contact Us Form Submission
 app.post('/contact-us', (req, res) => {
     const { name, email, message } = req.body;
 
     const mailOptions = {
-        from: email, // Use the sender's email from the form
-        to: 'kelvinekiganga999@gmail.com', // Replace with your organization's email
-        subject: `Contact Form: ${name}`, // Include the name in the subject
-        text: `You have received a new message from your website contact form.Name: ${name} Email: ${email}
-          Message:${message}`,
+      from: `${name} <${email}>`, // Use the sender's email from the form
+        to: process.env.ORGANIZATION_EMAIL, // From .env file
+        subject: `Contact Form From ${name}`, // Include the name in the subject
+        text:`
+        Below is the information submitted through the Contact Us form on our website from ${name}.
+        Email: ${email}
+        Message:${message}`,
     };
 
     transporter.sendMail(mailOptions, (err, info) => {
@@ -149,7 +162,7 @@ app.post('/contact-us', (req, res) => {
     // 2. Helcim Payment Intent (Redirect)
     app.get('/payment-redirect', (req, res) => {
     // Replace with your Helcim Payment Page URL
-    const helcimPaymentPageUrl = "https://secure.helcim.com/payment/your-helcim-id";
+    const helcimPaymentPageUrl = process.env.HELCIM_PAYMENT_PAGE_URL; // From .env file
     res.redirect(helcimPaymentPageUrl);
 });
 
@@ -176,23 +189,6 @@ app.post('/upload', upload.single('document'), (req, res) => {
 
     blobStream.end(req.file.buffer);
 });
-
-/*/ 4. Stripe Payment Intent Creation
-app.post('/create-payment-intent', async (req, res) => {
-    try {
-        const { amount } = req.body; // Amount in cents
-        const paymentIntent = await stripe.paymentIntents.create({
-            amount, // Amount should be sent from frontend
-            currency: 'usd',
-            payment_method_types: ['card'],
-        });
-
-        res.send({ clientSecret: paymentIntent.client_secret });
-    } catch (error) {
-        console.error(error);
-        res.status(500).send('Payment creation failed');
-    }
-});*/
 
 // Server Listener
 const PORT = 3000;

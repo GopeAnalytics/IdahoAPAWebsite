@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener("DOMContentLoaded", () => {
     console.log("DOM fully loaded. scripts.js is running.");
 
     // Toggle the navigation menu
@@ -6,96 +6,109 @@ document.addEventListener("DOMContentLoaded", () => {
         const navMenu = document.querySelector("nav ul");
         navMenu.classList.toggle("show");
     });
-
-    // File upload handling logic for the Application Form
+    // File upload handling logic
     const fileInput = document.getElementById("fileInput");
     const fileList = document.getElementById("fileList");
     const maxFiles = 5;
     const maxSize = 5 * 1024 * 1024; // 5MB in bytes
 
-    let files = [];
+   if (fileInput) {
+     fileInput.addEventListener("change", () => {
+        const newFiles = Array.from(fileInput.files);
 
-    if (fileInput) {
-        fileInput.addEventListener("change", () => {
-            const newFiles = Array.from(fileInput.files);
+        // Validate the number of files
+        if (newFiles.length > maxFiles) {
+            alert(`You can upload a maximum of ${maxFiles} files.`);
+            fileInput.value = ""; // Clear file input
+            return;
+        }
 
-            // Validate the number of files
-            if (files.length + newFiles.length > maxFiles) {
-                alert(`You can upload a maximum of ${maxFiles} files.`);
+        // Validate file sizes
+        for (const file of newFiles) {
+            if (file.size > maxSize) {
+                alert(`${file.name} exceeds the 5MB size limit.`);
                 fileInput.value = ""; // Clear file input
                 return;
             }
-
-            // Validate file sizes
-            for (const file of newFiles) {
-                if (file.size > maxSize) {
-                    alert(`${file.name} exceeds the 5MB size limit.`);
-                    fileInput.value = ""; // Clear file input
-                    return;
-                }
-            }
-
-            files.push(...newFiles);
-            updateFileList();
-            fileInput.value = ""; // Clear file input for re-selection
-        });
-
-        function updateFileList() {
-            fileList.innerHTML = ""; // Clear the current list
-
-            files.forEach((file, index) => {
-                const fileDiv = document.createElement("div");
-
-                const fileName = document.createElement("span");
-                fileName.textContent = file.name;
-
-                const deleteButton = document.createElement("button");
-                deleteButton.textContent = "Delete";
-                deleteButton.addEventListener("click", () => {
-                    files.splice(index, 1); // Remove the file from the array
-                    updateFileList(); // Refresh the display
-                });
-
-                fileDiv.appendChild(fileName);
-                fileDiv.appendChild(deleteButton);
-                fileList.appendChild(fileDiv);
-            });
         }
-    }
 
+        updateFileList(newFiles);
+    });
+
+    function updateFileList(files) {
+        fileList.innerHTML = ""; // Clear the current list
+
+        files.forEach((file, index) => {
+            const fileDiv = document.createElement("div");
+
+            const fileName = document.createElement("span");
+            fileName.textContent = file.name;
+
+            const deleteButton = document.createElement("button");
+            deleteButton.textContent = "Delete";
+            deleteButton.addEventListener("click", () => {
+                const updatedFiles = Array.from(fileInput.files);
+                updatedFiles.splice(index, 1);
+
+                // Update the file input (workaround for removing files)
+                const dataTransfer = new DataTransfer();
+                updatedFiles.forEach(file => dataTransfer.items.add(file));
+                fileInput.files = dataTransfer.files;
+
+                updateFileList(updatedFiles);
+            });
+
+            fileDiv.appendChild(fileName);
+            fileDiv.appendChild(deleteButton);
+            fileList.appendChild(fileDiv);
+        });
+    }
+}
     // Function to handle form submission
-    async function handleFormSubmit(form, endpoint, responseDivId, isMultipart = false) {
+    async function handleFormSubmit(form, endpoint, responseDivId) {
         const responseDiv = document.getElementById(responseDivId);
         responseDiv.innerText = "Sending..."; // Show loading message
         console.log("Submitting form to endpoint:", endpoint);
-
+    
         try {
-            const formData = new FormData(form);
-            console.log("Form data being sent:", Array.from(formData.entries())); // Log the data
-
+            const formData = new FormData(form); // Automatically handles file inputs
+    
+            // Ensure the file input is added to FormData
+            const fileInput = form.querySelector('input[type="file"]');
+            if (fileInput && fileInput.files.length > 0) {
+                console.log("Adding files to FormData:");
+                for (let file of fileInput.files) {
+                    console.log("Adding file:", file.name);
+                    formData.append(fileInput.name, file);
+                }
+            }
+    
+            console.log("Final FormData being sent:", Array.from(formData.entries())); // Debug all fields
+    
             const fetchOptions = {
                 method: "POST",
-                body: isMultipart ? formData : JSON.stringify(Object.fromEntries(formData.entries())),
+                body: formData, // Send as multipart/form-data
             };
-
-            if (!isMultipart) {
-                fetchOptions.headers = { "Content-Type": "application/json" };
-            }
-
+    
             const response = await fetch(endpoint, fetchOptions);
             if (!response.ok) {
                 throw new Error(`Server error! Status: ${response.status}`);
             }
-
+    
             const message = await response.text();
             responseDiv.innerText = message || "Form submitted successfully.";
             console.log("Form submission response:", message);
+    
+            // Reload the page after successful submission
+            setTimeout(() => {
+                window.location.reload(); // Reload the page
+            }, 2000); // Wait 2 seconds before reloading
         } catch (error) {
             console.error("Error submitting form:", error);
             responseDiv.innerText = "Failed to submit form. Please try again.";
         }
     }
-
+    
     // Contact Form Submission
     const contactForm = document.getElementById("contact-form");
     if (contactForm) {
@@ -128,58 +141,40 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
   // Contact us Submission
-     document.getElementById('contact-us').addEventListener('submit', async (event) => {
-        event.preventDefault();
-    
-        const form = event.target;
-        const formData = new FormData(form);
-        const data = {
-            name: formData.get('name'),
-            email: formData.get('email'),
-            message: formData.get('message'),
-        };
-    
-        try {
-            const response = await fetch("http://localhost:3000/contact-us", {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data),
-            });
-    
-            const responseText = await response.text();
-            document.getElementById('contact-response').innerText = response.ok
-                ? 'Message sent successfully!'
-                : `Failed to send message: ${responseText}`;
-        } catch (error) {
-            console.error('Error submitting form:', error);
-            document.getElementById('contact-response').innerText = 'An error occurred while sending the message.';
-        }
-    });
+  document.getElementById('contact-us').addEventListener('submit', async (event) => {
+    event.preventDefault();
 
-    /*// Stripe Payment Logic
-    const stripe = Stripe('your-publishable-key'); // Replace with your Stripe publishable key
-    const elements = stripe.elements();
-    const card = elements.create('card');
-    card.mount('#card-element');
+    const form = event.target;
+    const formData = new FormData(form);
+    const data = {
+        name: formData.get('name'),
+        email: formData.get('email'),
+        message: formData.get('message'),
+    };
 
-    document.getElementById('pay-now-button').addEventListener('click', async () => {
-        const response = await fetch('/create-payment-intent', {
+    try {
+        const response = await fetch("http://localhost:3000/contact-us", {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ amount: 5000 }), // Replace with the dynamic amount in cents
+            body: JSON.stringify(data),
         });
 
-        const { clientSecret } = await response.json();
+        const responseText = await response.text();
+        if (response.ok) {
+            document.getElementById('contact-response').innerText = 'Message sent successfully!';
+            console.log('Form submitted successfully:', responseText);
 
-        const result = await stripe.confirmCardPayment(clientSecret, {
-            payment_method: {
-                card: card,
-            },
-        });
-
-        if (result.error) {
-            document.getElementById('payment-result').textContent = 'Payment failed: ' + result.error.message;
+            // Reload the page after 2 seconds
+            setTimeout(() => {
+                window.location.reload();
+            }, 2000);
         } else {
-            document.getElementById('payment-result').textContent = 'Payment successful!';
+            document.getElementById('contact-response').innerText = `Failed to send message: ${responseText}`;
         }
-    });*/
+    } catch (error) {
+        console.error('Error submitting form:', error);
+        document.getElementById('contact-response').innerText = 'An error occurred while sending the message.';
+    }
+});
+
+    
