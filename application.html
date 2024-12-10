@@ -51,7 +51,7 @@
     </section>
     <section>
       <h2>Application Form</h2>
-      <form id="application-form">
+      <form id="application-form" enctype="multipart/form-data">
         <input type="text" name="name" placeholder="Your Name" required>
         <input type="email" name="email" placeholder="Your Email" required>
         <textarea name="details" placeholder="Land Details"></textarea>
@@ -71,7 +71,6 @@
       <form action="http://localhost:3000/payment-redirect" method="get">
         <button type="submit">Pay Now</button>
     </form>
-    
     </section>
   </main>
   <footer>

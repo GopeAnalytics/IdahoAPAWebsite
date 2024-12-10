@@ -61,7 +61,7 @@
     </section>
     <section>
       <h2>Form to Collect Details</h2>
-      <form id="hire-us-form">
+      <form id="hire-us-form" enctype="multipart/form-data">
         <input type="text" name="name" placeholder="Your Name" required>
         <input type="email" name="email" placeholder="Your Email" required>
         <textarea name="land_details" placeholder="Land Details"></textarea>
@@ -75,7 +75,7 @@
         </select>
         <div class="document-upload">
           <h3>Upload Your Documents (Optional)</h3>
-          <input type="file" id="fileInput" accept=".pdf,.doc,.docx,.jpg,.png" multiple />
+          <input type="file" name="documents" id="fileInput" accept=".pdf,.doc,.docx,.jpg,.png" multiple />
           <div id="fileList"></div>
         </div>
         <button type="submit">Submit Details</button>

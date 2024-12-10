@@ -64,26 +64,30 @@ app.post('/send-email', (req, res) => {
       res.send('Email sent successfully!');
     });
   });  
-// Submit Application Form
+// Application Form Submission
 app.post('/submit-application', upload.array('documents', 5), (req, res) => {
-    console.log('Files:', req.files); // Debug log for uploaded files
-    console.log('Body:', req.body);   // Debug log for form fields
-
-   // if (!req.files) {
-        //return res.status(400).send('No files were uploaded');
-   // }
+  console.log('Files received:', req.files); // Log the received files
+  console.log('Form fields received:', req.body); // Log the other form fields
     const { name, email, details } = req.body;
-    const attachments = req.files.map(file => ({
-        filename: file.originalname,
-        content: file.buffer,
-    }));
+
+    // Prepare attachments if files are uploaded
+    const attachments = req.files && req.files.length > 0
+        ? req.files.map((file) => ({
+              filename: file.originalname,
+              content: file.buffer,
+          }))
+        : []; // Empty array if no files are uploaded
 
     const mailOptions = {
-        from: `${email}`, // Use the sender's email from the form dynamically
+      from: `${name} <${email}>`, // Use the sender's email from the form dynamically
         to: process.env.ORGANIZATION_EMAIL, // From .env file
         subject: `Application Form Submission from ${name}`,
-        text: `Name: ${name}\nEmail: ${email}\nLand Details: ${details}`,
-        attachments: attachments,
+        text: `
+        Name: ${name}
+        Email: ${email}
+        Land Details: ${details}
+        `,
+        attachments, // Attach files if present
     };
 
     transporter.sendMail(mailOptions, (err, info) => {
@@ -94,19 +98,21 @@ app.post('/submit-application', upload.array('documents', 5), (req, res) => {
         res.send('Application email sent successfully!');
     });
 });
-
 // Hire Us Form
 app.post('/hire-us', upload.array('documents', 5), (req, res) => {
-    if (!req.files) {
-        return res.status(400).send('No files were uploaded');
-    }
+    console.log('Headers:', req.headers); // Log headers to check Content-Type
+    console.log('Files received:', req.files); // Log the received files
+    console.log('Form fields received:', req.body); // Log the other form fields
     const { name, email, land_details, consultation_day, service_type } = req.body;
   
-    const attachments = req.files?.map((file) => ({
-      filename: file.originalname,
-      content: file.buffer,
-    }));
-  
+    // Prepare attachments if files are uploaded
+    const attachments = req.files && req.files.length > 0
+        ? req.files.map((file) => ({
+              filename: file.originalname,
+              content: file.buffer,
+          }))
+        : []; // Empty array if no files are uploaded
+
     const mailOptions = {
       from: `${name} <${email}>`,
       to: process.env.ORGANIZATION_EMAIL, // From .env file
@@ -135,11 +141,13 @@ app.post('/contact-us', (req, res) => {
     const { name, email, message } = req.body;
 
     const mailOptions = {
-        from: email, // Use the sender's email from the form
+      from: `${name} <${email}>`, // Use the sender's email from the form
         to: process.env.ORGANIZATION_EMAIL, // From .env file
-        subject: `Contact Form: ${name}`, // Include the name in the subject
-        text: `You have received a new message from your website contact form.Name: ${name} Email: ${email}
-          Message:${message}`,
+        subject: `Contact Form From ${name}`, // Include the name in the subject
+        text:`
+        Below is the information submitted through the Contact Us form on our website from ${name}.
+        Email: ${email}
+        Message:${message}`,
     };
 
     transporter.sendMail(mailOptions, (err, info) => {
