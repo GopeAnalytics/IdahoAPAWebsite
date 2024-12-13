@@ -1,8 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
     console.log("DOM fully loaded. scripts.js is running.");
 
-    // Load environment variables
-    const BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
+    const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
+    if (!API_BASE_URL) {
+        console.error("API base URL is not defined in the environment variables.");
+        return;
+    }
 
     // Toggle the navigation menu
     document.querySelector(".hamburger").addEventListener("click", function () {
@@ -20,14 +24,12 @@ document.addEventListener("DOMContentLoaded", () => {
         fileInput.addEventListener("change", () => {
             const newFiles = Array.from(fileInput.files);
 
-            // Validate the number of files
             if (newFiles.length > maxFiles) {
                 alert(`You can upload a maximum of ${maxFiles} files.`);
                 fileInput.value = ""; // Clear file input
                 return;
             }
 
-            // Validate file sizes
             for (const file of newFiles) {
                 if (file.size > maxSize) {
                     alert(`${file.name} exceeds the 5MB size limit.`);
@@ -44,7 +46,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
             files.forEach((file, index) => {
                 const fileDiv = document.createElement("div");
-
                 const fileName = document.createElement("span");
                 fileName.textContent = file.name;
 
@@ -54,9 +55,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     const updatedFiles = Array.from(fileInput.files);
                     updatedFiles.splice(index, 1);
 
-                    // Update the file input (workaround for removing files)
                     const dataTransfer = new DataTransfer();
-                    updatedFiles.forEach(file => dataTransfer.items.add(file));
+                    updatedFiles.forEach((file) => dataTransfer.items.add(file));
                     fileInput.files = dataTransfer.files;
 
                     updateFileList(updatedFiles);
@@ -69,33 +69,27 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Function to handle form submission
     async function handleFormSubmit(form, endpoint, responseDivId) {
         const responseDiv = document.getElementById(responseDivId);
-        responseDiv.innerText = "Sending..."; // Show loading message
+        responseDiv.innerText = "Sending...";
         console.log("Submitting form to endpoint:", endpoint);
 
         try {
-            const formData = new FormData(form); // Automatically handles file inputs
+            const formData = new FormData(form);
 
-            // Ensure the file input is added to FormData
             const fileInput = form.querySelector('input[type="file"]');
             if (fileInput && fileInput.files.length > 0) {
-                console.log("Adding files to FormData:");
                 for (let file of fileInput.files) {
-                    console.log("Adding file:", file.name);
                     formData.append(fileInput.name, file);
                 }
             }
 
-            console.log("Final FormData being sent:", Array.from(formData.entries())); // Debug all fields
-
             const fetchOptions = {
                 method: "POST",
-                body: formData, // Send as multipart/form-data
+                body: formData,
             };
 
-            const response = await fetch(`${BASE_URL}${endpoint}`, fetchOptions);
+            const response = await fetch(`${API_BASE_URL}${endpoint}`, fetchOptions);
             if (!response.ok) {
                 throw new Error(`Server error! Status: ${response.status}`);
             }
@@ -104,42 +98,35 @@ document.addEventListener("DOMContentLoaded", () => {
             responseDiv.innerText = message || "Form submitted successfully.";
             console.log("Form submission response:", message);
 
-            // Reload the page after successful submission
             setTimeout(() => {
-                window.location.reload(); // Reload the page
-            }, 2000); // Wait 2 seconds before reloading
+                window.location.reload();
+            }, 2000);
         } catch (error) {
             console.error("Error submitting form:", error);
             responseDiv.innerText = "Failed to submit form. Please try again.";
         }
     }
 
-    // Contact Form Submission
     const contactForm = document.getElementById("contact-form");
     if (contactForm) {
         contactForm.addEventListener("submit", (e) => {
             e.preventDefault();
-            console.log("Contact form intercepted.");
             handleFormSubmit(contactForm, "/send-email", "contact-response");
         });
     }
 
-    // Application Form Submission
     const applicationForm = document.getElementById("application-form");
     if (applicationForm) {
         applicationForm.addEventListener("submit", (e) => {
             e.preventDefault();
-            console.log("Application form intercepted.");
             handleFormSubmit(applicationForm, "/submit-application", "application-response");
         });
     }
 
-    // Hire-Us Form Submission
     const hireUsForm = document.getElementById("hire-us-form");
     if (hireUsForm) {
         hireUsForm.addEventListener("submit", (e) => {
             e.preventDefault();
-            console.log("Hire-Us form intercepted.");
             handleFormSubmit(hireUsForm, "/hire-us", "hire-us-response");
         });
     }
