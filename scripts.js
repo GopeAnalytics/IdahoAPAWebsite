@@ -1,4 +1,4 @@
-    document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => {
     console.log("DOM fully loaded. scripts.js is running.");
 
     // Toggle the navigation menu
@@ -115,7 +115,7 @@
         contactForm.addEventListener("submit", (e) => {
             e.preventDefault();
             console.log("Contact form intercepted.");
-            handleFormSubmit(contactForm, "http://localhost:3000/send-email", "contact-response");
+            handleFormSubmit(contactForm, "https://idahoapawebsite.onrender.com/send-email", "contact-response");
         });
     }
     
@@ -125,7 +125,7 @@
         applicationForm.addEventListener("submit", (e) => {
             e.preventDefault();
             console.log("Application form intercepted.");
-            handleFormSubmit(applicationForm, "http://localhost:3000/submit-application", "application-response", true);
+            handleFormSubmit(applicationForm, "https://idahoapawebsite.onrender.com/submit-application", "application-response", true);
         });
     }
 
@@ -135,7 +135,7 @@
         hireUsForm.addEventListener("submit", (e) => {
             e.preventDefault();
             console.log("Hire-Us form intercepted.");
-            handleFormSubmit(hireUsForm, "http://localhost:3000/hire-us", "hire-us-response", true);
+            handleFormSubmit(hireUsForm, "https://idahoapawebsite.onrender.com/hire-us", "hire-us-response", true);
         });
     }
 });
@@ -153,7 +153,7 @@
     };
 
     try {
-        const response = await fetch("http://localhost:3000/contact-us", {
+        const response = await fetch("https://idahoapawebsite.onrender.com/contact-us", {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data),
