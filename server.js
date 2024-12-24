@@ -102,10 +102,10 @@ You have received a new application form submission with the following details:
 
 Name: ${name}
 Email: ${email}
-Details: ${details}
+Land Details: ${details}
 
 Attachments:
-${attachments && attachments.length > 0 ? "Files attached" : "No files attached"}
+${attachments && attachments.length > 0 ? "Files attached Below" : "No files attached"}
 
 Please review and take the necessary action.
 
@@ -123,65 +123,87 @@ Automated Notification System
       res.send('Application email sent successfully!');
   });
 });
-// Hire Us Form
+// Hire Us Form Submission
 app.post('/hire-us', upload.array('documents', 5), (req, res) => {
-    console.log('Headers:', req.headers); // Log headers to check Content-Type
-    console.log('Files received:', req.files); // Log the received files
-    console.log('Form fields received:', req.body); // Log the other form fields
-    const { name, email, land_details, consultation_day, service_type } = req.body;
-  
-    // Prepare attachments if files are uploaded
-    const attachments = req.files && req.files.length > 0
-        ? req.files.map((file) => ({
-              filename: file.originalname,
-              content: file.buffer,
-          }))
-        : []; // Empty array if no files are uploaded
+  console.log('Files received:', req.files);
+  console.log('Form fields received:', req.body);
 
-    const mailOptions = {
-      from: `${name} <${email}>`,
-      to: process.env.ORGANIZATION_EMAIL, // From .env file
+  const { name, email, land_details, consultation_day, service_type } = req.body;
+
+  const attachments = req.files?.map((file) => ({
+      filename: file.originalname,
+      content: file.buffer,
+  }));
+
+  const mailOptions = {
+    from: `${name} <${process.env.FROM_EMAIL}>`, // Verified domain as "From"
+      replyTo: email, // User's email for replies
+      to: process.env.ORGANIZATION_EMAIL, // Recipient's email
       subject: `Hire-Us Form Submission from ${name}`,
       text: `
-        Name: ${name}
-        Email: ${email}
-        Land Details: ${land_details}
-        Consultation Day: ${consultation_day}
-        Service Type: ${service_type}
+Dear Team,
+
+You have received a new hire-us form submission with the following details:
+
+Name: ${name}
+Email: ${email}
+Land Details: ${land_details}
+Consultation Day: ${consultation_day}
+Service Type: ${service_type}
+
+Attachments:
+${attachments && attachments.length > 0 ? "Files attached" : "No files attached"}
+
+Please review and take the necessary action.
+
+Best regards,
+Automated Notification System
       `,
       attachments,
-    };
-  
-    transporter.sendMail(mailOptions, (err, info) => {
+  };
+
+  transporter.sendMail(mailOptions, (err, info) => {
       if (err) {
-        console.error(err);
-        return res.status(500).send('Failed to send hire-us email');
+          console.error(err);
+          return res.status(500).send('Failed to send hire-us email');
       }
       res.send('Hire-us email sent successfully!');
-    });
   });
-  
+});
 // Contact Us Form Submission
 app.post('/contact-us', (req, res) => {
-    const { name, email, message } = req.body;
+  const { name, email, message } = req.body;
 
-    const mailOptions = {
-      from: `${name} <${email}>`, // Use the sender's email from the form
-        to: process.env.ORGANIZATION_EMAIL, // From .env file
-        subject: `Contact Form From ${name}`, // Include the name in the subject
-        text:`
-        Below is the information submitted through the Contact Us form on our website from ${name}.
-        Email: ${email}
-        Message:${message}`,
-    };
+  const mailOptions = {
+    from: `${name} <${process.env.FROM_EMAIL}>`, // Verified domain as "From"
+      replyTo: email, // User's email for replies
+      to: process.env.ORGANIZATION_EMAIL, // Recipient's email
+      subject: `Contact Form Submission from ${name}`,
+      text: `
+Dear Team,
 
-    transporter.sendMail(mailOptions, (err, info) => {
-        if (err) {
-            console.error('Error sending email:', err);
-            return res.status(500).send('Failed to send contact form email');
-        }
-        res.send('Contact form email sent successfully!');
-    });
+Below is the information submitted through the Contact Us form:
+
+Name: ${name}
+Email: ${email}
+
+Message:
+${message}
+
+Please review and take the necessary action.
+
+Best regards,
+Automated Notification System
+      `,
+  };
+
+  transporter.sendMail(mailOptions, (err, info) => {
+      if (err) {
+          console.error(err);
+          return res.status(500).send('Failed to send contact form email');
+      }
+      res.send('Contact form email sent successfully!');
+  });
 });
 
     // 2. Helcim Payment Intent (Redirect)
