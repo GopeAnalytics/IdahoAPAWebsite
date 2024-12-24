@@ -43,7 +43,7 @@ app.post('/send-email', (req, res) => {
   const { name, email, message, consultation_day, consultation_mode } = req.body;
 
   const mailOptions = {
-    from: `"${name}" <${process.env.FROM_EMAIL}>`, // Verified domain as "From"
+    from: `${name} <${process.env.FROM_EMAIL}>`, // Verified domain as "From"
     replyTo: email, // The user's email for replies
     to: process.env.ORGANIZATION_EMAIL, // Recipient email (e.g., your organization)
     subject: `New Consultation Form Submission from ${name}`,
@@ -80,37 +80,48 @@ Automated Notification System
 
 // Application Form Submission
 app.post('/submit-application', upload.array('documents', 5), (req, res) => {
-  console.log('Files received:', req.files); // Log the received files
-  console.log('Form fields received:', req.body); // Log the other form fields
-    const { name, email, details } = req.body;
+  console.log('Files received:', req.files);
+  console.log('Form fields received:', req.body);
 
-    // Prepare attachments if files are uploaded
-    const attachments = req.files && req.files.length > 0
-        ? req.files.map((file) => ({
-              filename: file.originalname,
-              content: file.buffer,
-          }))
-        : []; // Empty array if no files are uploaded
+  const { name, email, details } = req.body;
 
-    const mailOptions = {
-      from: `${name} <${email}>`, // Use the sender's email from the form dynamically
-        to: process.env.ORGANIZATION_EMAIL, // From .env file
-        subject: `Application Form Submission from ${name}`,
-        text: `
-        Name: ${name}
-        Email: ${email}
-        Land Details: ${details}
-        `,
-        attachments, // Attach files if present
-    };
+  const attachments = req.files?.map((file) => ({
+      filename: file.originalname,
+      content: file.buffer,
+  }));
 
-    transporter.sendMail(mailOptions, (err, info) => {
-        if (err) {
-            console.error(err);
-            return res.status(500).send('Failed to send application email');
-        }
-        res.send('Application email sent successfully!');
-    });
+  const mailOptions = {
+    from: `${name} <${process.env.FROM_EMAIL}>`, // Verified domain as "From"
+      replyTo: email, // User's email for replies
+      to: process.env.ORGANIZATION_EMAIL, // Recipient's email
+      subject: `Application Form Submission from ${name}`,
+      text: `
+Dear Team,
+
+You have received a new application form submission with the following details:
+
+Name: ${name}
+Email: ${email}
+Details: ${details}
+
+Attachments:
+${attachments && attachments.length > 0 ? "Files attached" : "No files attached"}
+
+Please review and take the necessary action.
+
+Best regards,
+Automated Notification System
+      `,
+      attachments,
+  };
+
+  transporter.sendMail(mailOptions, (err, info) => {
+      if (err) {
+          console.error(err);
+          return res.status(500).send('Failed to send application email');
+      }
+      res.send('Application email sent successfully!');
+  });
 });
 // Hire Us Form
 app.post('/hire-us', upload.array('documents', 5), (req, res) => {
