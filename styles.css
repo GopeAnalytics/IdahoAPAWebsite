@@ -4,15 +4,30 @@ body {
     margin: 0;
     padding: 0;
     line-height: 1.6;
-    color: #333;
-    background-color: #ffffff;
+    color: #afa6a6;
+    background-color: #dbe0e5;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+    box-sizing: border-box;
+}
+
+html {
+    width: 100%;
+    overflow-x: hidden; /* Prevent horizontal scrolling on the HTML element */
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit; /* Ensure consistent box-sizing across elements */
+    margin: 0;
+    padding: 0;
 }
 
 p {
     text-align: center;
     margin: 10px auto;
-    color: #555;
-    font-size: 1.1rem;
+    color: #444;
+    font-size: 1rem;
     line-height: 1.5;
 }
 
@@ -23,40 +38,31 @@ ul, ol {
 }
 
 header {
-    display: flex; /* Enable flexbox for layout */
-    flex-direction: column; /* Stack navigation and title vertically */
-    align-items: stretch; /* Center-align the title */
-    padding: 10px 20px; /* Add padding around the header */
-    background-color: #f5f5f5;
-    border-bottom: 2px solid #dcdcdc;
-}
-
-header .top-nav {
-    width: 100%; /* Ensure the navigation spans the full width */
-    text-align: right !important; /* Align the navigation links to the right */
-    margin-bottom: 10px; /* Add spacing between the navigation and the title */
-    position: relative; /* For absolute positioning of dropdowns */
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 10px 20px;
+    background-color: #ffffff;
+    border-bottom: 2px solid #e0e0e0;
 }
 
 header h1 {
-    text-align: center; /* Center-align the title */
-    font-size: 2.5rem;
+    text-align: center;
+    font-size: 2.2rem;
     text-transform: uppercase;
-    letter-spacing: 2px;
     font-weight: bold;
-    color: #8b0000;
-    margin: 0; /* Remove default margin */
+    color: #555;
+    margin: 0;
 }
 
-
 header p {
-    font-size: 1.2rem;
-    color: #555;
+    font-size: 1.1rem;
+    color: #666;
 }
 
 /* Subheadings */
 section h2, section h3 {
-    color: #8b0000;
+    color: #333;
     margin-bottom: 10px;
     text-align: center;
     font-size: 1.5rem;
@@ -64,39 +70,31 @@ section h2, section h3 {
 }
 
 /* Navigation Menu */
-nav {
-    flex-grow: 1; /* Allow navigation to grow and push items to the far-right */
-    text-align: right; /* Align navigation to the right */
-    
-}
 nav ul {
     list-style: none;
     margin: 0;
     padding: 0;
-    display: flex; /* Use flexbox for horizontal layout */
-    gap: 15px; /* Add space between items */
-    justify-content: flex-end; /* Explicitly align items to the right */
-}
-
-nav ul li {
-    margin: 0;
+    display: flex;
+    gap: 15px;
+    justify-content: flex-end;
 }
 
 nav ul li a {
     text-decoration: none;
-    color: #fff;
+    color: #333;
     font-weight: bold;
     padding: 10px 15px;
     border-radius: 5px;
-    background-color: #8b0000;
+    background-color: #f5f5f5;
 }
+
 nav ul li a:hover {
-    background-color: #700000;
+    background-color: #e0e0e0;
 }
 
 /* Hamburger Menu Styles for Small Screens */
 .hamburger {
-    display: none; /* Hide the hamburger button on larger screens */
+    display: none;
     background: none;
     border: none;
     cursor: pointer;
@@ -119,42 +117,41 @@ nav ul li a:hover {
 /* Responsive Navigation */
 @media (max-width: 768px) {
     .hamburger {
-        display: block; /* Show the hamburger menu button on smaller screens */
+        display: block;
     }
 
     nav ul {
-        display: none; /* Hide the navigation links by default */
-        flex-direction: column; /* Stack the navigation links vertically */
+        display: none;
+        flex-direction: column;
         position: absolute;
         top: 50px;
         left: 0;
         width: 100%;
-        background-color: #8b0000;
+        background-color: #ffffff;
         padding: 10px 0;
         z-index: 9;
     }
 
     nav ul.show {
-        display: flex; /* Show the navigation links when toggled */
+        display: flex;
     }
 
     nav ul li {
-        text-align: center; /* Center-align links in vertical menu */
+        text-align: center;
         margin: 10px 0;
     }
 
     nav ul li a {
         padding: 10px;
-        width: 100%; /* Make links take the full width of the dropdown */
+        width: 100%;
     }
 }
-
 
 /* Dropdown Menu */
 nav ul li ul {
     display: none;
     position: absolute;
-    background-color: #8b0000;
+    background-color: #ffffff;
     padding: 10px;
     border-radius: 5px;
     min-width: 150px;
@@ -164,26 +161,21 @@ nav ul li:hover ul {
     display: block;
 }
 
-nav ul li ul li {
-    display: block;
-    margin: 5px 0;
-}
-
 nav ul li ul li a {
-    color: #fff;
+    color: #333;
     padding: 10px;
     border-radius: 5px;
-    background-color: #8b0000;
+    background-color: #f5f5f5;
 }
 
 nav ul li ul li a:hover {
-    background-color: #700000;
+    background-color: #e0e0e0;
 }
 
 /* Footer */
 footer {
-    background-color: #8b0000;
-    color: #fff;
+    background-color: #4d6a82f5;
+    color: #ffffff;
     padding: 20px;
     text-align: center;
     display: flex;
@@ -208,7 +200,7 @@ footer ul li:last-child {
 }
 
 footer ul li a {
-    color: #fff;
+    color: #ffffff;
     text-decoration: none;
     font-weight: bold;
 }
@@ -217,33 +209,13 @@ footer ul li a:hover {
     text-decoration: underline;
 }
 
-/* Buttons */
-button, input[type="submit"] {
-    background-color: #b22222;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    text-align: center;
-    display: block;
-    margin: 10px auto;
-    width: 150px; /* Adjusted button width */
-    height: 40px; /* Adjusted button height */
-    font-size: 14px;
-    text-transform: uppercase;
-}
-
-button:hover, input[type="submit"]:hover {
-    background-color: #c73e3e;
-}
-
 /* Form Styles */
 form {
     max-width: 600px;
     margin: 20px auto;
-    background-color: #fff;
+    background-color: #ffffff;
     padding: 20px;
-    border: 1px solid #ddd;
+    border: 1px solid #e0e0e0;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -271,24 +243,13 @@ section div {
 }
 
 section div div {
-    width: 40%;
+    width: 48%;
     text-align: center;
-    padding: 15px;
+    padding: 20px;
     border: 1px solid #ddd;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-section div div:nth-child(1) {
-    background-color: #ffedd5;
-}
-
-section div div:nth-child(2) {
-    background-color: #d5ffe6;
-}
-
-section div div:nth-child(3) {
-    background-color: #d5e8ff;
+    background-color: #ffffff;
 }
 
 section div div:hover {
@@ -302,87 +263,92 @@ section div div:hover {
     padding: 20px;
     border: 1px solid #ddd;
     border-radius: 5px;
+    max-width: 600px;
+    background-color: #ffffff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    max-width: 600px;
+}
+/* Centering all buttons in their parent sections */
+section {
+    text-align: center; /* Center-aligns all content inside sections */
 }
 
-.document-upload h3 {
-    color: #8b0000;
-    margin-bottom: 10px;
-}
-
-.document-upload p {
-    color: #555;
-    margin-bottom: 20px;
-}
-
-#fileInput {
-    margin-bottom: 20px;
-}
-
-#fileList div {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 5px;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-}
-
-/* Booking Calendar Section */
-.booking-calendar {
+button {
+    display: inline-block; /* Ensures buttons behave like inline elements */
+    background-color: #354a3b; /* Button background color */
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
     text-align: center;
-    margin: 20px auto;
+    padding: 10px 20px;
+    font-size: 16px;
+    text-transform: uppercase;
+    margin: 10px auto; /* Center horizontally within a flexbox or block container */
+}
+
+button:hover {
+    background-color: #555; /* Hover effect */
+}
+/* Carousel Item */
+.carousel-item {
+    text-align: center;
+    background-color: #928a40;
+    color: #fff;
     padding: 20px;
-    max-width: 600px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #f9f9f9;
 }
 
 /* Media Queries */
 @media (max-width: 768px) {
-    header h1 {
-        font-size: 2rem;
-    }
-
-    nav ul li {
-        display: block;
-        margin: 10px 0;
-    }
-
-    section div {
-        flex-direction: column;
-        align-items: center;
-    }
-
     section div div {
         width: 90%;
         margin-bottom: 15px;
     }
 
     button, input[type="submit"] {
-        width: 100%; /* Buttons span full width */
+        width: 100%;
     }
 }
 
 @media (max-width: 430px) {
-    header h1 {
-        font-size: 1.8rem;
-    }
-
     section div div {
         width: 100%;
     }
 
     button, input[type="submit"] {
-        width: 90%; /* Adjusted button width for small screens */
-        height: 40px; /* Ensure buttons are easy to tap */
+        width: 90%;
+        height: 40px;
     }
 
     form {
         padding: 15px;
     }
+}.paladin-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px; /* Add some padding around the content */
+    border: 1px solid #ddd; /* Optional: Add a border for visibility */
+    border-radius: 30px; /* Optional: Add rounded corners */
+    max-width: fit-content; /* Ensure the box wraps tightly around the content */
+    margin: 0 auto; /* Center the box horizontally */
+    background-color: #565353; /* Optional: Background color */
 }
+
+.paladin-text {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    font-size: 1rem; /* Adjust font size for smaller text */
+    color: #333;
+}
+
+.paladin-logo {
+    width: 2cm;
+    height: 1cm;
+    margin-left: 10px; /* Add some space between the text and the logo */
+    flex-shrink: 0; /* Ensures the logo doesn't resize */
+}
+.e {
+    color: orange;
+  }
+  
