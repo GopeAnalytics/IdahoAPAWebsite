@@ -8,6 +8,22 @@ body {
     background-color: #dbe0e5;
     overflow-x: hidden; /* Prevent horizontal scrolling */
     box-sizing: border-box;
+<<<<<<< HEAD
+=======
+}
+
+html {
+    width: 100%;
+    overflow-x: hidden; /* Prevent horizontal scrolling on the HTML element */
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit; /* Ensure consistent box-sizing across elements */
+    margin: 0;
+    padding: 0;
+>>>>>>> c96cd8ab3d479482b63bc636d138f487e22112b1
 }
 
 html {
