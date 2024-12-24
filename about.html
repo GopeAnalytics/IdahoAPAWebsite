@@ -5,7 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/styles.css">
   <title>About Us</title>
+</head><body>
+      
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Stretch Example</title>
+  <style>
+    img {
+      width: 100%; /* Makes the image span the full width of the screen */
+      height: 4cm; /* Ensures the height is exactly 4 cm */
+      object-fit: cover; /* Maintains aspect ratio while filling the area */
+    }
+  </style>
 </head>
+<body>
+  <img src="APA.jpg" alt="">
+</body>
+</html>
+</html>
 <body>
     <header>
         <div class="top-nav">
@@ -20,13 +37,17 @@
                     <li>
                         <a href="#">Services</a>
                         <ul>
-                            <li><a href="/application.html">Application Prep</a></li>
+                            <li><a href="/application.html">Application Prep</a></li><div style="height: 20px;"></div> <!-- Adds 20px of empty space -->
                             <li><a href="/consultation.html">Consultation</a></li>
                             <!-- <li><a href="/document-help.html">Document Help</a></li> -->
                         </ul>
             </nav>
         </div>
-        <h1>About Us</h1>
+        <h1></h1><div style="display: flex; justify-content: space-between; width: 100%;">
+          <img id="specific-cow" src="cow home.jpg" alt="COW image" style="width: 15cm; flex: 0 0 50%;">
+          <img id="specific-cow" src="fl home.jpg" alt="FL image" style="width: 15cm; flex: 0 0 50%;">
+      </div>
+      
     </header>
   <main>
     <section>
@@ -34,14 +55,17 @@
       <p>Paladin Partners LLC: Your trusted partner for APA applications.
         Troy Thurgood, founding partner of Paladin Partners, presently serves on the Madison County Planning and Zoning Commission and was heavily involved in the process of developing the ordinance and process.  
         Madison County was the first county to build this process in the state of Idaho.
-        Troy bring vast experience with government regulations, applications and representation to boards.  
+        Troy brings vast experience with government regulations, applications and representation to boards.  
         His background is in accounting, compliance services and entrepreneurship.</p>
     </section>
     <section>
       <h2>Our Mission</h2>
       <p>To represent landowners of Madison County Idaho who wish to place their land into an agriculture protection area.</p>
     </section>
-  </main>
+  </main><h1 style="display: flex; justify-content: space-between; width: 100%;">
+    <img id="specific-cow" src="asa about.jpg" alt="COW image" style="width: 15cm; height: 10cm; flex: 0 0 100%;">
+  </h1>
+  
   <footer>
     <ul>
       <li><a href="/faq.html">FAQ</a></li>

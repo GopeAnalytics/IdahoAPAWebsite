@@ -6,7 +6,24 @@
   <link rel="stylesheet" href="/styles.css">
   <title>Consultation</title>
 </head>
+<body><body>
+      
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Stretch Example</title>
+  <style>
+    img {
+      width: 100%; /* Makes the image span the full width of the screen */
+      height: 4cm; /* Ensures the height is exactly 4 cm */
+      object-fit: cover; /* Maintains aspect ratio while filling the area */
+    }
+  </style>
+</head>
 <body>
+  <img src="APA.jpg" alt="">
+</body>
+</html>
+</html>
     <header>
         <div class="top-nav">
             <button class="hamburger" aria-label="Toggle menu">
@@ -20,7 +37,7 @@
                     <li>
                         <a href="#">Services</a>
                         <ul>
-                            <li><a href="/application.html">Application Prep</a></li>
+                            <li><a href="/application.html">Application Prep</a></li><div style="height: 20px;"></div> <!-- Adds 20px of empty space -->
                             <li><a href="/consultation.html">Consultation</a></li>
                             <!-- <li><a href="/document-help.html">Document Help</a></li> -->
                         </ul>
@@ -29,9 +46,12 @@
                 </ul>
             </nav>
         </div>
-        <h1>Consultation</h1>
+        <h1></h1>
     </header>    
-  <main>
+  <main><h1 style="display: flex; justify-content: space-between; width: 100%;">
+    <img id="specific-cow" src="lep con.jpg" alt="COW image" style="width: 15cm; height: 10cm; flex: 0 0 100%;">
+  </h1>
+  
     <section>
       <h2>Service Overview</h2>
       <p>
