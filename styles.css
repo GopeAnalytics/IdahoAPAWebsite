@@ -6,6 +6,21 @@ body {
     line-height: 1.6;
     color: #afa6a6;
     background-color: #dbe0e5;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+    box-sizing: border-box;
+}
+
+html {
+    width: 100%;
+    overflow-x: hidden; /* Prevent horizontal scrolling on the HTML element */
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit; /* Ensure consistent box-sizing across elements */
+    margin: 0;
+    padding: 0;
 }
 
 p {

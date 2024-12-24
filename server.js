@@ -39,31 +39,42 @@ const bucketName = 'your-bucket-name'; // Replace with your bucket name
 // Routes
 
 // 1. Contact Form Email Sending
-// Contact Form Email Sending
 app.post('/send-email', (req, res) => {
-    const { name, email, message, consultation_day, consultation_mode } = req.body;
-  
-    const mailOptions = {
-      from: `${name} <${email}>`,
-      to: process.env.ORGANIZATION_EMAIL, // From .env file
-      subject: `Contact Form Submission from ${name}`,
-      text: `
-        Name: ${name}
-        Email: ${email}
-        Message: ${message}
-        Consultation Day: ${consultation_day}
-        Consultation Mode: ${consultation_mode}
-      `,
-    };
-  
-    transporter.sendMail(mailOptions, (err, info) => {
-      if (err) {
-        console.error(err);
-        return res.status(500).send('Failed to send email');
-      }
-      res.send('Email sent successfully!');
-    });
-  });  
+  const { name, email, message, consultation_day, consultation_mode } = req.body;
+
+  const mailOptions = {
+    from: `"${name}" <${email}>`,
+    to: process.env.ORGANIZATION_EMAIL, // From .env file
+    subject: `New Consultation Form Submission from ${name}`,
+    text: `
+Dear Team,
+
+You have received a new consultation form submission with the following details:
+
+Name: ${name}
+Email: ${email}
+Consultation Day: ${consultation_day}
+Consultation Mode: ${consultation_mode}
+
+Message:
+${message}
+
+Please review and take the necessary action.
+
+Best regards,
+Automated Notification System
+    `,
+  };
+
+  transporter.sendMail(mailOptions, (err, info) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).send('Failed to send email');
+    }
+    res.send('Email sent successfully!');
+  });
+});
+
 // Application Form Submission
 app.post('/submit-application', upload.array('documents', 5), (req, res) => {
   console.log('Files received:', req.files); // Log the received files
