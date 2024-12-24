@@ -43,8 +43,9 @@ app.post('/send-email', (req, res) => {
   const { name, email, message, consultation_day, consultation_mode } = req.body;
 
   const mailOptions = {
-    from: `"${name}" <${email}>`,
-    to: process.env.ORGANIZATION_EMAIL, // From .env file
+    from: `"${name}" <${process.env.FROM_EMAIL}>`, // Verified domain as "From"
+    replyTo: email, // The user's email for replies
+    to: process.env.ORGANIZATION_EMAIL, // Recipient email (e.g., your organization)
     subject: `New Consultation Form Submission from ${name}`,
     text: `
 Dear Team,
@@ -66,6 +67,7 @@ Automated Notification System
     `,
   };
 
+  // Send the email
   transporter.sendMail(mailOptions, (err, info) => {
     if (err) {
       console.error(err);
@@ -74,6 +76,7 @@ Automated Notification System
     res.send('Email sent successfully!');
   });
 });
+
 
 // Application Form Submission
 app.post('/submit-application', upload.array('documents', 5), (req, res) => {
