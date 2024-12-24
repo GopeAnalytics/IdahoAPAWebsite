@@ -6,8 +6,22 @@ body {
     line-height: 1.6;
     color: #afa6a6;
     background-color: #dbe0e5;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+    box-sizing: border-box;
 }
 
+html {
+    width: 100%;
+    overflow-x: hidden; /* Prevent horizontal scrolling on the HTML element */
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit; /* Ensure consistent box-sizing across elements */
+    margin: 0;
+    padding: 0;
+}
 p {
     text-align: center;
     margin: 10px auto;
@@ -337,3 +351,43 @@ button:hover {
     color: orange;
   }
   
+ /* Flex Container */
+.flex-container {
+    display: flex;
+    justify-content: space-between; /* Ensures even spacing between the images */
+    width: 100%; /* Full-width container */
+}
+
+/* Image Styles */
+.flex-container img {
+    width: 15cm; /* Fixed width for both images */
+    height: 10cm; /* Fixed height for both images */
+    flex: 0 0 50%; /* Each image occupies 50% of the container width */
+    object-fit: cover; /* Maintains aspect ratio while filling the dimensions */
+    margin: 0; /* Removes any default margin around images */
+    padding: 0; /* Ensures no padding */
+    display: block; /* Prevents inline spacing issues */
+}
+/* Specific Image Styling */
+#specific-asa {
+    width: 15cm; /* Fixed width for the image */
+    height: 10cm; /* Fixed height for the image */
+    flex: 0 0 100%; /* Image takes up the full width of the flex container */
+    object-fit: cover; /* Ensures the image fills its container without distortion */
+    margin: 0; /* Removes any default margin */
+    padding: 0; /* Removes padding */
+    display: block; /* Prevents inline spacing issues */
+}
+/* Full Page Background Container */
+.background-container {
+    position: absolute; /* Ensures it stays in the background */
+    top: 0;
+    left: 0;
+    width: 100vw; /* Full width of the viewport */
+    height: 100vh; /* Full height of the viewport */
+    background-image: url('mt priv.jpg'); /* Path to the image */
+    background-size: cover; /* Ensures the image covers the entire container */
+    background-position: center; /* Centers the image */
+    background-repeat: no-repeat; /* Prevents repeating the image */
+    z-index: -1; /* Places the background behind all content */
+}
