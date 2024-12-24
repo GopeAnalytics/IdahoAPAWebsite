@@ -22,12 +22,14 @@ app.use(express.static('public'));
 
 // Nodemailer with Mailgun Configuration
 const transporter = nodemailer.createTransport({
-    host: "smtp.mailgun.org",
-    port: 587,
+    host: process.env.SMTP_HOST,
+    port: process.env.SMTP_PORT,
+    secure: false,
     auth: {
-        user: process.env.MAILGUN_USER, // From .env file
-        pass: process.env.MAILGUN_PASS, // From .env file
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
     },
+    tls: { rejectUnauthorized: false },
 });
 // Google Cloud Storage Configuration
 const storage = new Storage({
@@ -43,7 +45,7 @@ app.post('/send-email', (req, res) => {
   const { name, email, message, consultation_day, consultation_mode } = req.body;
 
   const mailOptions = {
-    from: `${name} <${process.env.FROM_EMAIL}>`, // Verified domain as "From"
+    from: `${name} <${process.env.SMTP_USER}>`, // Verified domain as "From"
     replyTo: email, // The user's email for replies
     to: process.env.ORGANIZATION_EMAIL, // Recipient email (e.g., your organization)
     subject: `New Consultation Form Submission from ${name}`,
@@ -91,7 +93,7 @@ app.post('/submit-application', upload.array('documents', 5), (req, res) => {
   }));
 
   const mailOptions = {
-    from: `${name} <${process.env.FROM_EMAIL}>`, // Verified domain as "From"
+    from: `${name} <${process.env.SMTP_USER}>`, // Verified domain as "From"
       replyTo: email, // User's email for replies
       to: process.env.ORGANIZATION_EMAIL, // Recipient's email
       subject: `Application Form Submission from ${name}`,
@@ -136,7 +138,7 @@ app.post('/hire-us', upload.array('documents', 5), (req, res) => {
   }));
 
   const mailOptions = {
-    from: `${name} <${process.env.FROM_EMAIL}>`, // Verified domain as "From"
+    from: `${name} <${process.env.SMTP_USER}>`, // Verified domain as "From"
       replyTo: email, // User's email for replies
       to: process.env.ORGANIZATION_EMAIL, // Recipient's email
       subject: `Hire-Us Form Submission from ${name}`,
@@ -175,7 +177,7 @@ app.post('/contact-us', (req, res) => {
   const { name, email, message } = req.body;
 
   const mailOptions = {
-    from: `${name} <${process.env.FROM_EMAIL}>`, // Verified domain as "From"
+    from: `${name} <${process.env.SMTP_USER}>`, // Verified domain as "From"
       replyTo: email, // User's email for replies
       to: process.env.ORGANIZATION_EMAIL, // Recipient's email
       subject: `Contact Form Submission from ${name}`,
