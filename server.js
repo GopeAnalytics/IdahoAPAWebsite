@@ -43,7 +43,7 @@ app.post('/send-email', (req, res) => {
   const { name, email, message, consultation_day, consultation_mode } = req.body;
 
   const mailOptions = {
-    from: `${name} <${process.env.SMTP_USER}>`, // Verified domain as "From"
+    from: `${name} <${process.env.FROM_EMAIL}>`, // Verified domain as "From"
     replyTo: email, // The user's email for replies
     to: process.env.ORGANIZATION_EMAIL, // Recipient email (e.g., your organization)
     subject: `New Consultation Form Submission from ${name}`,
@@ -91,7 +91,7 @@ app.post('/submit-application', upload.array('documents', 5), (req, res) => {
   }));
 
   const mailOptions = {
-    from: `${name} <${process.env.SMTP_USER}>`, // Verified domain as "From"
+    from: `${name} <${process.env.FROM_EMAIL}>`, // Verified domain as "From"
       replyTo: email, // User's email for replies
       to: process.env.ORGANIZATION_EMAIL, // Recipient's email
       subject: `Application Form Submission from ${name}`,
@@ -136,7 +136,7 @@ app.post('/hire-us', upload.array('documents', 5), (req, res) => {
   }));
 
   const mailOptions = {
-    from: `${name} <${process.env.SMTP_USER}>`, // Verified domain as "From"
+    from: `${name} <${process.env.FROM_EMAIL}>`, // Verified domain as "From"
       replyTo: email, // User's email for replies
       to: process.env.ORGANIZATION_EMAIL, // Recipient's email
       subject: `Hire-Us Form Submission from ${name}`,
@@ -175,7 +175,7 @@ app.post('/contact-us', (req, res) => {
   const { name, email, message } = req.body;
 
   const mailOptions = {
-    from: `${name} <${process.env.SMTP_USER}>`, // Verified domain as "From"
+    from: `${name} <${process.env.FROM_EMAIL}>`, // Verified domain as "From"
       replyTo: email, // User's email for replies
       to: process.env.ORGANIZATION_EMAIL, // Recipient's email
       subject: `Contact Form Submission from ${name}`,
@@ -206,12 +206,18 @@ Automated Notification System
   });
 });
 
-    // 2. Helcim Payment Intent (Redirect)
-    app.get('/payment-redirect', (req, res) => {
-    // Replace with your Helcim Payment Page URL
-    const helcimPaymentPageUrl = process.env.HELCIM_PAYMENT_PAGE_URL; // From .env file
-    res.redirect(helcimPaymentPageUrl);
+   // Helcim Payment Intent for Consultation Form
+app.get('/payment-redirect-consultation', (req, res) => {
+  const consultationPaymentUrl = process.env.HELCIM_PAYMENT_PAGE_CONSULTATION_URL;
+  res.redirect(consultationPaymentUrl);
 });
+
+// Helcim Payment Intent for Other Forms
+app.get('/payment-redirect-default', (req, res) => {
+  const defaultPaymentUrl = process.env.HELCIM_PAYMENT_PAGE_DEFAULT_URL;
+  res.redirect(defaultPaymentUrl);
+});
+
 
 
 // 3. File Upload to Google Cloud
