@@ -22,14 +22,12 @@ app.use(express.static('public'));
 
 // Nodemailer with Mailgun Configuration
 const transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: process.env.SMTP_PORT,
-    secure: false,
+  host: "smtp.mailgun.org",
+  port: 587,
     auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
+      user: process.env.MAILGUN_USER, // From .env file
+      pass: process.env.MAILGUN_PASS, // From .env file
     },
-    tls: { rejectUnauthorized: false },
 });
 // Google Cloud Storage Configuration
 const storage = new Storage({
